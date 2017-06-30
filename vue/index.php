@@ -6,6 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>       
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +24,8 @@
     <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
+       
 
 <?php include("vue/window_icon.php"); ?>
 
@@ -39,7 +46,7 @@
                 <img src="images/home/slider/slide1/fjord_slider1.jpg" class="img-responsive slider-house" alt="slider image">
             </div>
             <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
             </div>
         </div>
      </section>
@@ -50,11 +57,11 @@
             <div class="row">
                 <div class="single-features">
                     <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                     <img src="images/blog/<?php echo $chapitre['chapitre_ID']; ?>.jpg" class="img-responsive" alt="">
+                     <img src="images/blog/<?php echo $chapitre['chapitre_ID']; ?>.jpg" class="img-responsive" alt="illustration">
                     </div>
                     <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
                       <h2><a href="blogdetails.php?chapitre=<?php echo $chapitre['chapitre_ID']; ?>">Dernier chapitre</a></h2>
-                        <P>Retrouvez le dernier chapitre de mon roman !</P>
+                        <br /<p>Retrouvez le dernier chapitre de mon roman !</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +83,7 @@ foreach($chapitres_index as $chapitre)
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="images/home/icon<?php echo $chapitre['chapitre_ID']; ?>.png" alt="">
+                            <img src="images/home/icon<?php echo $chapitre['chapitre_ID']; ?>.png" alt="illustration">
                         </div>
                         <h2><a href="blogdetails.php?chapitre=<?php echo $chapitre['chapitre_ID']; ?>"> <?php echo $chapitre['chapitre_Titre']; ?> </a></h2>
                         <p>Retrouvez les aventures du nouveau roman de Jean Forteroche !</p>
@@ -96,12 +103,5 @@ foreach($chapitres_index as $chapitre)
 <?php include("vue/footer.php"); ?>   
     <!--/#footer-->
 
-
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>   
 </body>
 </html>

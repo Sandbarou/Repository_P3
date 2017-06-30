@@ -12,14 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="testimonial bottom">
                         <h2>Extraits</h2>
                         <div class="media">
                             <div class="pull-left">
-                                <img src="images/home/profile1.png" alt="">
+                                <img src="images/home/profile1.png" alt="illustration">
                             </div>
                             <div class="media-body">
                                 <blockquote>Donec at malesuada nibh. Proin metus mauris, fermentum eu nulla ac, scelerisque interdum diam.</blockquote>
@@ -28,7 +28,7 @@
                          </div>
                         <div class="media">
                             <div class="pull-left">
-                                <img src="images/home/profile2.png" alt="">
+                                <img src="images/home/profile2.png" alt="illustration">
                             </div>
                             <div class="media-body">
                                 <blockquote>Sed at lobortis dolor. Morbi nec malesuada leo, in porta elit. Vivamus aliquam turpis non porta rhoncus. Donec rutrum vulputate dolor non ullamcorper.</blockquote>
@@ -50,14 +50,14 @@
                         <address>
                         Jean Forteroche <br> 
                         15 rue des Lilas <br> 
-                        75008 PARIS <br> 
+                        75004 PARIS <br> 
                         FRANCE <br> 
                         </address>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    <div class="contact-form bottom">
-                        <p><br /><br /><br /><img src="images/alaska3.jpg" class="img-responsive" alt="image paysage Alaska" width="100%"></p> 
+                    <div class="contact-form bottom-2">
+                        <p><br /><br /><br /><img src="images/alaska3.jpg" class="img-responsive" alt="image paysage Alaska" width="80%"></p> 
                     </div>
                 </div>
                 <div class="col-sm-12">

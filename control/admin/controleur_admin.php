@@ -1,5 +1,16 @@
 <?php
 
+include_once('model/admin/delete_chapitres.php');
+$delete_chap = delete_chapitres();
+
+if(isset($_GET['delpost'])){
+    // On effectue du traitement sur les données (contrôleur)
+    $delete_chap->rowCount();
+}
+
+
+
+
 include_once('model/blog/get_chapitres_blog.php');
 $chapitres_blog = get_chapitres_blog();
 

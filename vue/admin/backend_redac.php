@@ -15,6 +15,13 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=myg94mec9havyrgyxlz8z8mrwxa5biz29t3qlf1lq4db79u3"></script>
     <script>tinymce.init({ selector:'textarea' });</script>
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,8 +47,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 <?php include("vue/menu_admin.php"); ?> 
 
+
     <section id="blog-details" class="padding-top">
         <div class="container">
+           <p><h1 class="cl-3">Ajout d'un chapitre</h1></p><br />
             <div class="row">
                 <div class="col-md-9 col-sm-7">
                     <div class="row">
@@ -57,39 +66,21 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
         // collecter les donnees du formulaire
         extract($_POST);
 
-        // validations
-        if($chapitre_Titre ==''){
-            $error[] = "Merci d'écrire un titre";
-        }
-
-        if($chapitre_Contenu ==''){
-            $error[] = "Merci d'ajouter un contenu";
-        }
-
         if(!isset($error)){
-
             try {
+                    $insert_chap->rowCount();
+                } 
+                    catch(PDOException $e) {
+                        echo $e->getMessage();
+                }
 
-                //insertion dans la base de donnees
-                $reponse = $bdd->prepare('INSERT INTO blog_chapitre (chapitre_Auteur, chapitre_Titre, chapitre_Contenu, chapitre_Date) VALUES (:chapitre_Auteur, :chapitre_Titre, :chapitre_Contenu, :chapitre_Date)') ;
-                $reponse->execute(array(
-                    ':chapitre_Auteur' => $chapitre_Auteur,
-                    ':chapitre_Titre' => $chapitre_Titre,
-                    ':chapitre_Contenu' => $chapitre_Contenu,
-                    ':chapitre_Date' => $chapitre_Date,
-                ));
-
-                //redirection page principale
-                header('Location: admin.php?action=ajouté');
-                exit;
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-            }
-
+            //redirection page principale
+            header('Location: admin.php?action=ajouté');
+            exit;
         }
-
+        
     }
+
 
     //verif erreurs
     if(isset($error)){
@@ -119,7 +110,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                                     <p><label for="chapitre_Contenu">Contenu du chapitre</label><br />
                                     <textarea name="chapitre_Contenu" id="chapitre_Contenu"><?php if(isset($error)){ echo $_POST['chapitre_Contenu'];}?></textarea></p><br />
 
-                                    <p><input type="submit" name="submit" id="submit" value="Envoyer"></p>
+                                    <p><input type="submit" name="submit" id="submit" value="Ajouter"></p>
 
                                 </form>
 
@@ -133,18 +124,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
     </section>
 
 
-
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

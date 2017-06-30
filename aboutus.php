@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>   
  
 <?php include("vue/window_title.php"); ?>
 
@@ -21,6 +27,7 @@
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
     <![endif]-->       
+
 
 <?php include("vue/window_icon.php"); ?>
 
@@ -51,7 +58,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="images/aboutus/1.png" class="img-responsive" alt="">
+                    <img src="images/aboutus/1.png" class="img-responsive" alt="illustration">
                 </div>
                 <div class="col-sm-6 padding-top">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lectus odio, vehicula fringilla semper a, molestie vitae eros. Duis sed nunc a velit tristique pharetra.</p>
@@ -62,7 +69,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
             </div>
         </div>
@@ -87,7 +94,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -107,7 +114,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/2.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/2.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -127,7 +134,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/3.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/3.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -147,7 +154,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -169,7 +176,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/4.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/4.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -189,7 +196,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/3.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/3.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -209,7 +216,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/2.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/2.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -229,7 +236,7 @@
                                 <div class="team-single-wrapper">
                                     <div class="team-single">
                                         <div class="person-thumb">
-                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="">
+                                            <img src="images/aboutus/1.jpg" class="img-responsive" alt="illustration">
                                         </div>
                                         <div class="social-profile">
                                             <ul class="nav nav-pills">
@@ -261,10 +268,6 @@
     <!--/#footer-->
 
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>   
+
 </body>
 </html>

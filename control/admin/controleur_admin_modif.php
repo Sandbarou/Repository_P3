@@ -1,4 +1,39 @@
 <?php
+include_once('model/admin/update_chapitres.php');
+$update_chap = update_chapitres();
+
+if(isset($_POST['submit'])){
+
+        $_POST = array_map( 'stripslashes', $_POST );
+
+        // collecter les donnees du formulaire
+        extract($_POST);
+
+        // validations
+        if($chapitre_ID ==''){
+            $error[] = "L'ID de ce chapitre n'est pas valide !";
+        }
+
+        if($chapitre_Titre ==''){
+            $error[] = "Merci d'écrire un titre";
+        }
+
+        if($chapitre_Contenu ==''){
+            $error[] = "Merci d'ajouter un contenu";
+        }
+
+        if(!isset($error)){
+            try {
+                	$update_chap->rowCount();
+                }
+					catch(PDOException $e) {
+                       echo $e->getMessage();
+            	}
+		}
+}
+
+
+
 
 include_once("model/admin/get_chapitres_admin.php");
 $chapitres_admin = get_chapitres_admin();
@@ -13,6 +48,9 @@ foreach($chapitres_admin as $chap => $chapitre)
     $chapitres_admin[$chap]['chapitre_Auteur'] = htmlspecialchars($chapitre['chapitre_Auteur']);
     $chapitres_admin[$chap]['chapitre_Contenu'] = nl2br($chapitre['chapitre_Contenu']);
 }
+
+
+
 
 // On affiche la page (vue)
 include_once('vue/admin/backend_modif.php');

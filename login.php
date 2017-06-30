@@ -11,6 +11,12 @@ if( $user->is_logged_in() ){ header('Location: admin.php'); }?>
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -111,11 +117,6 @@ if( $user->is_logged_in() ){ header('Location: admin.php'); }?>
     <!--/#footer-->
 
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
 
 
 </body>

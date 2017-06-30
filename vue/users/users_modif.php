@@ -12,6 +12,12 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -39,11 +45,17 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
     <section id="blog-details" class="padding-top">
         <div class="container">
+        <p><h1 class="cl-3">Modification de l'utilisateur</h1></p><br />
             <div class="row">
                 <div class="col-md-9 col-sm-7">
                     <div class="row">
+ 
+                        <div class="col-md-12 col-sm-12">
+                            
+                            <div class="single-blog single-column">
+                                <div class="post-thumb">
 
-<?php
+    <?php
 
     // quand le formulaire est envoye :
     if(isset($_POST['submit'])){
@@ -51,84 +63,29 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
         // collecter les données du formulaire
         extract($_POST);
 
-        // validations
-        if($user_Pseudo ==''){
-            $error[] = "Merci d'entrer un pseudo";
-        }
-
-        if( strlen($user_Pass) > 0){
-
-            if($user_Pass ==''){
-                $error[] = "Merci d'entrer un mot de passe";
-            }
-
-            if($user_PassConfirm ==''){
-                $error[] = "Merci de confirmer le mot de passe";
-            }
-
-            if($user_Pass != $user_PassConfirm){
-                $error[] = "Les mots de passe ne sont pas identiques";
-            }
-
-        }
-
-        if($user_Email ==''){
-            $error[] = "Merci d'entrer une adresse email";
-        }
-
         if(!isset($error)){
-
-
             try {
-
                 if(isset($user_Pass)){
-
                     $hashed_user_Pass = $user->create_hash($user_Pass);
 
-                    //maj base de donnees
-                    $reponse = $bdd->prepare('UPDATE blog_user SET user_Pseudo = :user_Pseudo, user_Pass = :user_Pass, user_Email = :user_Email WHERE user_ID = :user_ID') ;
-                    $reponse->execute(array(
-                        ':user_Pseudo' => $user_Pseudo,
-                        ':user_Pass' => $hashed_user_Pass,
-                        ':user_Email' => $user_Email,
-                        ':user_ID' => $user_ID
-                    ));
+                    $update_users->rowCount();
 
-
-                } else {
-
-                    //maj base de donnees
-                    $reponse = $bdd->prepare('UPDATE blog_user SET user_Pseudo = :user_Pseudo, user_Email = :user_Email WHERE user_ID = :user_ID') ;
-                    $reponse->execute(array(
-                        ':user_Pseudo' => $user_Pseudo,
-                        ':user_Email' => $user_Email,
-                        ':user_ID' => $user_ID
-                    ));
-
+                } 
+                else {
+                    $update_users->rowCount();
                 }
-                
+            } 
 
-                //redirection page principale
-                header('Location: users.php?action=modifié');
-                exit;
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
+                catch(PDOException $e) {
+                    echo $e->getMessage();
             }
 
+             //redirection page principale
+            header('Location: users.php?action=modifié');
+            exit;
         }
-
     }
 
-    ?>
-
-
-                        <div class="col-md-12 col-sm-12">
-                            
-                            <div class="single-blog single-column">
-                                <div class="post-thumb">
-
-    <?php
     //verif erreurs
     if(isset($error)){
         foreach($error as $error){
@@ -173,17 +130,10 @@ foreach($users_modif as $modif)
 
 
 
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

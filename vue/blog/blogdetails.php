@@ -2,13 +2,11 @@
 
 if(isset($_GET['modcom'])){ 
 
-    $reponse = $bdd->prepare('UPDATE blog_commentaire SET commentaire_Niveau = "1" WHERE commentaire_ID = :commentaire_ID');
-    $reponse->execute(array(':commentaire_ID' => $_GET['modcom']));
-
+    $update_commentaires->rowCount();
+ 
     header('Location: blog.php?action=signalé');
     exit;
-} 
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -151,11 +149,6 @@ foreach($commentaires_blogdetails as $commentaire)
 
 <?php
 }
-
-
-//message quand on ajoute ou modifie ou supprime un commentaire
-if(isset($_GET['action'])){ 
-    echo '<h3>Commentaire '.$_GET['action'].'.</h3>';} 
 ?>
 
 <?php
@@ -168,34 +161,16 @@ if(isset($_GET['action'])){
         // collecter les données du formulaire
         extract($_POST);
 
-        // validations
-        if($commentaire_Nom ==''){
-            $error[] = "Merci d'indiquer votre nom";
-        }
-
-        if($commentaire_Message ==''){
-            $error[] = "Merci d'ajouter un message";
-        }
-
         if(!isset($error)){
-
-            try {
-
-            //insertion dans la base de données
-            $reponse = $bdd->prepare('INSERT INTO blog_commentaire (commentaire_ID_chapitre, commentaire_Nom, commentaire_Message, commentaire_Niveau, commentaire_Date) VALUES (:chapitre_ID, :commentaire_Nom, :commentaire_Message, :commentaire_Niveau, :commentaire_Date)') ;
-            $reponse->execute(array(
-                ':chapitre_ID' => $commentaire_ID_chapitre,
-                ':commentaire_Nom' => $commentaire_Nom,
-                ':commentaire_Message' => $commentaire_Message,
-                ':commentaire_Niveau' => $commentaire_Niveau,
-                ':commentaire_Date' => date('Y-m-d H:i:s'),
-            ));
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-            }
-
+            try {        
+                    $insert_commentaires->rowCount();
+                } 
+                    catch(PDOException $e) {
+                        echo $e->getMessage();
+                }
         }
+
+    }
 
     if(isset($error)){
         foreach($error as $error){
@@ -203,7 +178,6 @@ if(isset($_GET['action'])){
         }
     }
 
-    }
 ?>    
 
 <?php
@@ -217,9 +191,9 @@ foreach($chapitres_blogdetails as $chapitre)
                                         <form action="" method="post">
                                             <p>
                                                 <label for="commentaire_Nom">Votre nom </label><br />
-                                                <input type="text" name="commentaire_Nom" id="commentaire_Nom" size="125" required="required" value="<?php if(isset($error)){ echo $_POST['commentaire_Nom'];}?>"> <br />
+                                                <input type="text" name="commentaire_Nom" id="commentaire_Nom" size="125" required="required" value="<?php if(isset($error)){ echo htmlspecialchars($_POST['commentaire_Nom']);}?>"> <br />
                                                 <label for="commentaire_Message">Votre texte </label><br />
-                                                <textarea name="commentaire_Message" id="commentaire_Message" rows="6" cols="124" required="required" value="<?php if(isset($error)){ echo $_POST['commentaire_Message'];}?>"> </textarea><br />
+                                                <textarea name="commentaire_Message" id="commentaire_Message" rows="6" cols="124" required="required" value="<?php if(isset($error)){ echo htmlspecialchars($_POST['commentaire_Message']);}?>"> </textarea><br />
                                                 <input type="hidden" name="commentaire_ID_chapitre" id="commentaire_ID_chapitre" value="<?php echo $chapitre['chapitre_ID']; ?>">
                                                 <input type="hidden" name="commentaire_Niveau" id="commentaire_Niveau" value="<?php echo $_POST[0]; ?>">
                                                 <input type="submit" name="submit" id="submit" value="Envoyer">

@@ -1,5 +1,63 @@
 <?php
 
+include_once('model/users/update_users_modif.php');
+$update_users = update_users_modif();
+
+// quand le formulaire est envoye :
+    if(isset($_POST['submit'])){
+
+        // collecter les données du formulaire
+        extract($_POST);
+
+        // validations
+        if($user_Pseudo ==''){
+            $error[] = "Merci d'entrer un pseudo";
+        }
+
+        if( strlen($user_Pass) > 0){
+
+            if($user_Pass ==''){
+                $error[] = "Merci d'entrer un mot de passe";
+            }
+
+            if($user_PassConfirm ==''){
+                $error[] = "Merci de confirmer le mot de passe";
+            }
+
+            if($user_Pass != $user_PassConfirm){
+                $error[] = "Les mots de passe ne sont pas identiques";
+            }
+        }
+
+        if($user_Email ==''){
+            $error[] = "Merci d'entrer une adresse email";
+        }
+
+        if(!isset($error)){
+            try {
+                if(isset($user_Pass)){
+
+                    $hashed_user_Pass = $user->create_hash($user_Pass);
+
+                    $update_users->rowCount();
+
+                } else {
+
+                    $update_users->rowCount();
+
+                }
+
+            } catch(PDOException $e) {
+                echo $e->getMessage();
+            }
+
+        }
+
+    }
+
+
+
+
 include_once('model/users/get_users_modif.php');
 $users_modif = get_users_modif();
 
@@ -11,6 +69,8 @@ foreach($users_modif as $cle => $modif)
     $users_modif[$cle]['user_Pseudo'] = htmlspecialchars($modif['user_Pseudo']);
     $users_modif[$cle]['user_Email'] = htmlspecialchars($modif['user_Email']);
 }
+
+
 
 // On affiche la page (vue)
 include_once('vue/users/users_modif.php');

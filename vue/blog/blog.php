@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 
 <?php include("vue/window_title.php"); ?>
 
@@ -37,6 +44,11 @@
                         <div class="col-sm-12">
                             <h1 class="title"><i>Billet simple pour l'Alaska</i></h1>
                             <p>Tous les chapitres</p>
+                            <?php
+                                //message quand on ajoute ou modifie ou supprime un commentaire
+                                if(isset($_GET['action'])){ 
+                                    echo '<h3>Commentaire '.$_GET['action'].'.</h3>';} 
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -95,7 +107,7 @@ foreach($commentaires as $commentaire)
 
                             <div class="media">
                                 <div class="pull-left">
-                                    <a href="#"><img src="images/portfolio/project3.jpg" alt=""></a>
+                                    <a href="#"><img src="images/portfolio/project3.jpg" alt="illustration"></a>
                                 </div>
                                 <div class="media-body">
                                     <h4><a href="blogdetails.php?chapitre=<?php echo $commentaire['commentaire_ID_chapitre']; ?>"><?php echo $commentaire['commentaire_Message']; ?></a></h4>
@@ -138,13 +150,6 @@ foreach($chapitres_blog as $chapitre)
 
 <?php include("vue/footer.php"); ?>   
     <!--/#footer-->
-
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
 
 
 </body>

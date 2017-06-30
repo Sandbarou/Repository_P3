@@ -155,6 +155,19 @@
   }
 
 
+  input[type=submit] {
+    background-color: #305c89;
+    border: 1px solid black;
+    border-radius: 4px 4px;
+    color: white;
+    font-weight: bold;
+    padding: 7px 7px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+
 /*************************
 *******Header******
 **************************/
@@ -162,68 +175,11 @@
 
 #header{
   margin-bottom: 0;
-  padding: 30px 0 60px 0;
+  padding: 30px 0 60px 30px;
 }
 
 #header .navbar-inverse .container{
   position: relative;
-}
-
-.search{
-  position: absolute;
-  top: 20px;
-  right: 0;
-  z-index: 1;
-}
-
-.search i{
-  color: #abcdef;
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  top: 2px;
-}
-
-.field-toggle{
-  position: relative;
-  top: 30px;
-  right: 15px;
-  display: none;
-  height: 50px;
-}
-
-.search-form{
-  padding-left: 10px;
-  height: 40px;
-  font-size: 18px;
-  color: #818285;
-  font-weight: 300;
-  outline: none;
-  border: 1px solid #abcdef;
-  margin-top: 20px;
-  border-radius: 4px;
-}
-
-.social-icons ul li{
-  padding: 0 10px;
-
-}
-
-.social-icons ul li:last-child{
-  padding-right: 0;
-
-}
-
-.social-icons ul li a{
-  font-size: 18px;
-  color: #d3d3d3;
-  padding: 0;
-}
-
-.social-icons ul li a:hover,
-.social-icons ul li a:focus{
-  color:#abcdef;
-  background: none;
 }
 
 #header .navbar {

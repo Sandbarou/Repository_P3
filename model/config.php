@@ -38,4 +38,3 @@ function __autoload($class) {
 
 //création de l'objet $user dans la classe User
 $user = new User($bdd); 
-?>

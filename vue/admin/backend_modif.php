@@ -15,6 +15,12 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=myg94mec9havyrgyxlz8z8mrwxa5biz29t3qlf1lq4db79u3"></script>
     <script>tinymce.init({ selector:'textarea' });</script>
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,62 +46,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 <?php include("vue/menu_admin.php"); ?> 
 
+
     <section id="blog-details" class="padding-top">
         <div class="container">
+                  <p><h1 class="cl-3">Modification du chapitre</h1></p><br />
             <div class="row">
                 <div class="col-md-9 col-sm-7">
                     <div class="row">
 
-<?php
-
-    // quand le formulaire est envoye :
-    if(isset($_POST['submit'])){
-
-        $_POST = array_map( 'stripslashes', $_POST );
-
-        // collecter les donnees du formulaire
-        extract($_POST);
-
-        // validations
-        if($chapitre_ID ==''){
-            $error[] = "L'ID de ce chapitre n'est pas valide !";
-        }
-
-        if($chapitre_Titre ==''){
-            $error[] = "Merci d'écrire un titre";
-        }
-
-        if($chapitre_Contenu ==''){
-            $error[] = "Merci d'ajouter un contenu";
-        }
-
-        if(!isset($error)){
-
-            try {
-
-                //maj base de donnees
-                $reponse = $bdd->prepare('UPDATE blog_chapitre SET chapitre_Auteur = :chapitre_Auteur, chapitre_Titre = :chapitre_Titre, chapitre_Contenu = :chapitre_Contenu, chapitre_Date = :chapitre_Date WHERE chapitre_ID = :chapitre_ID') ;
-                $reponse->execute(array(
-                    ':chapitre_Auteur' => $chapitre_Auteur,
-                    ':chapitre_Titre' => $chapitre_Titre,
-                    ':chapitre_Contenu' => $chapitre_Contenu,
-                    ':chapitre_Date' => $chapitre_Date,
-                    ':chapitre_ID' => $chapitre_ID
-                ));
-
-                //redirection page principale
-                header('Location: admin.php?action=modifié');
-                exit;
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-            }
-
-        }
-
-    }
-
-    ?>
 
                         <div class="col-md-12 col-sm-12">
                             
@@ -103,6 +61,28 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                                 <div class="post-thumb">
 
     <?php
+
+    if(isset($_POST['submit'])){
+
+        $_POST = array_map( 'stripslashes', $_POST );
+
+        // collecter les donnees du formulaire
+        extract($_POST);
+
+        if(!isset($error)){
+            try {
+                    $update_chap->rowCount();
+                } 
+                    catch(PDOException $e) {
+                        echo $e->getMessage();
+                }
+            //redirection page principale
+            header('Location: admin.php?action=modifié');
+            exit;
+        }
+
+    }
+
     //verif erreurs
     if(isset($error)){
         foreach($error as $error){
@@ -147,18 +127,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
     </section>
 
 
-
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illlustration">
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

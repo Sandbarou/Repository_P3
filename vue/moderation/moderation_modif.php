@@ -11,6 +11,12 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }?>
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -38,61 +44,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }?>
 
     <section id="blog" class="padding-top">
         <div class="container">
+        <p><h1 class="cl-3">Modification d'un commentaire</h1></p><br />
             <div class="row">
                <div class="col-md-9 col-sm-7">
                     <div class="row">   
-
-<?php
-
-    // quand le formulaire est envoye :
-    if(isset($_POST['submit'])){
-
-        $_POST = array_map( 'stripslashes', $_POST );
-
-        // collecter les donnees du formulaire
-        extract($_POST);
-
-        // validations
-        if($commentaire_ID ==''){
-            $error[] = "L'ID de ce commentaire n'est pas valide !";
-        }
-
-        if($commentaire_Nom ==''){
-            $error[] = "Merci d'écrire un nom";
-        }
-
-        if($commentaire_Message ==''){
-            $error[] = "Merci d'ajouter un contenu";
-        }
-
-        if(!isset($error)){
-
-            try {
-
-
-                //maj base de donnees
-                $reponse = $bdd->prepare('UPDATE blog_commentaire SET commentaire_Nom = :commentaire_Nom, commentaire_Message = :commentaire_Message, commentaire_Date = :commentaire_Date WHERE commentaire_ID = :commentaire_ID') ;
-                $reponse->execute(array(
-                    ':commentaire_Nom' => $commentaire_Nom,
-                    ':commentaire_Message' => $commentaire_Message,
-                    ':commentaire_Date' => $commentaire_Date,
-                    ':commentaire_ID' => $commentaire_ID
-                ));
-
-                //redirection page principale
-                header('Location: moderation.php?action=modifié');
-                exit;
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-            }
-
-        }
-
-    }
-
-    ?>
-
                         <ul class="media-list">
                             <li class="media">
                                 <div class="post-comment">
@@ -101,6 +56,27 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }?>
 
 
     <?php
+
+    if(isset($_POST['submit'])){
+
+        $_POST = array_map( 'stripslashes', $_POST );
+
+        // collecter les donnees du formulaire
+        extract($_POST);
+
+        if(!isset($error)){
+            try {
+                    $update_mod_modif->rowCount();
+                }   
+                    catch(PDOException $e) {
+                       echo $e->getMessage();
+                }
+            header('Location: moderation.php?action=modifié');
+            exit;    
+        }
+
+    }
+
     //verif erreurs
     if(isset($error)){
         foreach($error as $error){
@@ -138,18 +114,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }?>
     </section>
 
 
-
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

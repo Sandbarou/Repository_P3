@@ -8,6 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD82pKhliFXHjlaXy7aacuq-CJiWLa__v0"></script>
+    <script type="text/javascript" src="js/gmaps.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +28,7 @@
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
     <![endif]-->       
+
 
 <?php include("vue/window_icon.php"); ?>
 
@@ -62,7 +70,7 @@
                 <address>
                 Jean Forteroche <br> 
                 15 rue des Lilas <br> 
-                75008 PARIS <br> 
+                75004 PARIS <br> 
                 FRANCE <br> 
                 </address>
             </div>
@@ -74,11 +82,6 @@
     <!--/#footer-->
 
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD82pKhliFXHjlaXy7aacuq-CJiWLa__v0"></script>
-    <script type="text/javascript" src="js/gmaps.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>   
+   
 </body>
 </html>

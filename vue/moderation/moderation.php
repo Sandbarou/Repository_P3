@@ -6,8 +6,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 //message quand on supprime un commentaire
 if(isset($_GET['delcom'])){ 
 
-    $reponse = $bdd->prepare('DELETE FROM blog_commentaire WHERE commentaire_ID = :commentaire_ID') ;
-    $reponse->execute(array(':commentaire_ID' => $_GET['delcom']));
+    $delete_mod->rowCount();
 
     header('Location: moderation.php?action=effacé');
     exit;
@@ -16,8 +15,7 @@ if(isset($_GET['delcom'])){
 //message quand on valide un commentaire
 if(isset($_GET['okcom'])){ 
 
-    $reponse = $bdd->prepare('UPDATE blog_commentaire SET commentaire_Niveau = "0" WHERE commentaire_ID = :commentaire_ID');
-    $reponse->execute(array(':commentaire_ID' => $_GET['okcom']));
+    $update_mod->rowCount();
 
     header('Location: moderation.php?action=validé');
     exit;
@@ -54,6 +52,12 @@ if(isset($_GET['okcom'])){
         }
     </script>
 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
+
 <?php include("vue/window_title.php"); ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -82,6 +86,7 @@ if(isset($_GET['okcom'])){
  
     <section id="blog" class="padding-top">
         <div class="container">
+        <p><h1 class="cl-3">Liste des commentaires signalés</h1></p><br />
             <div class="row">
                <div class="col-md-9 col-sm-7">
                     <div class="row">   
@@ -100,24 +105,19 @@ foreach($moderation_signal as $mod_signal)
 {
 ?>
 
+                        <div class="col-sm-12 col-md-12">
+                            <div class="single-blog single-column">
+                                    <img src="images/blog/<?php echo $chapitre['chapitre_ID']; ?>.jpg" class="img-responsive" width="30%" alt="illustration"><br />
+                                    <h2 class="post-title bold-2"><a href="blogdetails.php?chapitre=<?php echo $mod_signal['commentaire_ID_chapitre']; ?>">Commentaire de <?php echo $mod_signal['commentaire_Nom']; ?> dans le chapitre <?php echo $mod_signal['commentaire_ID_chapitre']; ?> </a></h2>
+                                    <h5>Posté le <?php echo $mod_signal['commentaire_Date_fr']; ?> </h5>
+                                    <h3 class="post-author"><?php echo $mod_signal['commentaire_Message']; ?> </h3>
+                                        <p><i class="fa fa-pencil-square-o"></i><a href="moderation_modif.php?id=<?php echo $mod_signal['commentaire_ID']; ?>"> Modifier ce commentaire </a></p>
+                                        <p><i class="fa fa-check"></i><a href="javascript:okcom('<?php echo $mod_signal['commentaire_ID'];?>','<?php echo $mod_signal['commentaire_Nom'];?>')"> Valider ce commentaire </a></p>
+                                        <p><i class="fa fa-times"></i><a href="javascript:delcom('<?php echo $mod_signal['commentaire_ID'];?>','<?php echo $mod_signal['commentaire_Nom'];?>')"> Effacer ce commentaire </a></p>
+                                        <hr style="height:3px"; color="grey";>
 
-
-                                    
-                        <ul class="media-list">
-                            <li class="media">
-                                <div class="post-comment">
-                                    <div class="media-body">
-                                        <h2 class="post-title bold"><a href="blogdetails.php?chapitre=<?php echo $mod_signal['commentaire_ID_chapitre']; ?>"><img src="images/blog/<?php echo $chapitre['chapitre_ID']; ?>.jpg" class="img-responsive" width="30%" alt="illustration">Commentaire de <?php echo $mod_signal['commentaire_Nom']; ?> dans le chapitre <?php echo $mod_signal['commentaire_ID_chapitre']; ?> </a></h2>
-                                        <h3 class="post-author"><?php echo $mod_signal['commentaire_Message']; ?> </h3>
-                                        <h3 class="post-author">Posté le <?php echo $mod_signal['commentaire_Date_fr']; ?> </h3>
-                                            <p><a href="moderation_modif.php?id=<?php echo $mod_signal['commentaire_ID']; ?>">Pour modifier ce commentaire, cliquez ici !</a></p>
-                                            <p><a href="javascript:okcom('<?php echo $mod_signal['commentaire_ID'];?>','<?php echo $mod_signal['commentaire_Nom'];?>')"> Valider ce commentaire </a></p>
-                                            <p><a href="javascript:delcom('<?php echo $mod_signal['commentaire_ID'];?>','<?php echo $mod_signal['commentaire_Nom'];?>')"> Effacer ce commentaire </a></p>
-                                            <hr style="height:3px"; color="grey";>
-                                        
-                                    </div>
-                                </div>
-                                                    
+                            </div>   
+                        </div>                   
 <?php
 }
 ?>
@@ -127,17 +127,11 @@ foreach($moderation_signal as $mod_signal)
     </section>
 
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>  
-
 
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
-                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="">
+                    <img src="images/home/image_under2.jpg" class="img-responsive inline" alt="illustration">
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

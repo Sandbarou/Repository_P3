@@ -1,5 +1,28 @@
 <?php
 
+include_once('model/moderation/update_moderation.php');
+$update_mod = update_moderation();
+
+if(isset($_GET['okcom'])){
+    // On effectue du traitement sur les données (contrôleur)
+    // Ici, on doit surtout sécuriser l'affichage
+    $update_mod->rowCount();
+}
+
+
+
+include_once('model/moderation/delete_moderation.php');
+$delete_mod = delete_moderation();
+
+if(isset($_GET['delcom'])){
+    // On effectue du traitement sur les données (contrôleur)
+    // Ici, on doit surtout sécuriser l'affichage
+    $delete_mod->rowCount();
+}
+
+
+
+
 include_once('model/moderation/get_moderation.php');
 $moderation_signal = get_moderation();
 
@@ -13,6 +36,8 @@ foreach($moderation_signal as $mod => $mod_signal)
 	$moderation_signal[$mod]['commentaire_Nom'] = htmlspecialchars($mod_signal['commentaire_Nom']);
     $moderation_signal[$mod]['commentaire_Message'] = htmlspecialchars($mod_signal['commentaire_Message']);
 }
+
+
 
 // On affiche la page (vue)
 include_once('vue/moderation/moderation.php');

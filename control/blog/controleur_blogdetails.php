@@ -1,4 +1,45 @@
 <?php
+include_once('model/blog/insert_commentaires_blogdetails.php');
+$insert_commentaires = insert_commentaires_blogdetails();
+
+if(isset($_POST['submit'])){
+
+        $_POST = array_map( 'stripslashes', $_POST );
+
+        // collecter les données du formulaire
+        extract($_POST);
+
+        // validations
+        if($commentaire_Nom == " "){
+            $error[] = "Merci d'indiquer votre nom";
+        }
+
+        if($commentaire_Message == " "){
+            $error[] = "Merci d'ajouter un message";
+        }
+
+        if(!isset($error)){
+            try {        
+                    $insert_commentaires->rowCount();
+                } 
+                    catch(PDOException $e) {
+                        echo $e->getMessage();
+                }
+        }
+}
+
+
+
+
+include_once('model/blog/update_commentaires_blogdetails.php');
+$update_commentaires = update_commentaires_blogdetails();
+
+if(isset($_GET['modcom'])){
+    // On effectue du traitement sur les données (contrôleur)
+    // Ici, on doit surtout sécuriser l'affichage
+    $update_commentaires->rowCount();
+}
+
 
 
 include_once('model/blog/get_chapitres_blogdetails.php');

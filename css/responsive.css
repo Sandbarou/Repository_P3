@@ -206,7 +206,6 @@
 
 }
 
-
 /* xs */
 @media only screen and (max-width : 768px) {
 
@@ -254,20 +253,13 @@
   .navbar-inverse .navbar-collapse,
   .navbar-inverse .navbar-form {
     border-top: 0;
+    margin: 25px;
   }
 
   .navbar.navbar-inverse {
     margin-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
-  }
-
-  .social-icons ul li:first-child{
-    padding-left: 0;
-  }
-
-  .search {
-    top: -40px;
   }
 
   #header .navbar-nav.navbar-right li > a > i {
@@ -553,7 +545,6 @@
 }
 
 @media only screen and (max-width : 480px) {
-
 
   #home-slider .slider-circle1 {
     right: 80%;

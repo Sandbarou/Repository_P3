@@ -1,9 +1,3 @@
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet"> 
-    <link href="css/lightbox.css" rel="stylesheet"> 
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
     
 <header id="header">      
 
@@ -24,14 +18,14 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.php">ACCUEIL</a></li>
-                        <li class="dropdown"><a href="aboutus.php">Qui suis-je ? <i class="fa fa-angle-down"></i></a>
+                        <li><a href="index.php">  ACCUEIL</a></li>
+                        <li class="dropdown"><a href="aboutus.php">Qui suis-je ?<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="aboutus.php">Jean Forteroche</a></li>
-                                <li><a href="contact2.php">Contactez-moi</a></li>
+                                <li><a href="aboutus.php">  Jean Forteroche</a></li>
+                                <li><a href="contact2.php">  Contactez-moi</a></li>
                             </ul>
                         </li>                  
-                        <li class="dropdown"><a href="blog.php">Billet simple pour l'Alaska <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="blog.php">Billet simple pour l'Alaska<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="blog.php">Tous les chapitres</a></li>
 
