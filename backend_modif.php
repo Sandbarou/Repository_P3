@@ -1,6 +1,6 @@
 <?php
 
-include_once('model/config.php');
+include_once('src/config.php');
 
 if (!isset($_GET['section']) OR $_GET['section'] == 'index')
 {

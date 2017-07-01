@@ -1,4 +1,4 @@
-<?php include_once('model/config.php'); ?>
+<?php include_once('src/config.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">

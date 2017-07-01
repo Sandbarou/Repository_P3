@@ -110,7 +110,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                                     <p><label for="chapitre_Contenu">Contenu du chapitre</label><br />
                                     <textarea name="chapitre_Contenu" id="chapitre_Contenu"><?php if(isset($error)){ echo $_POST['chapitre_Contenu'];}?></textarea></p><br />
 
-                                    <p><input type="submit" name="submit" id="submit" value="Ajouter"></p>
+                                    <input type="submit" name="submit" id="submit" value="Ajouter">
 
                                 </form>
 

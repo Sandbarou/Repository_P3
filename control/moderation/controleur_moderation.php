@@ -1,33 +1,29 @@
 <?php
 
-include_once('model/moderation/update_moderation.php');
-$update_mod = update_moderation();
+include_once('classes/class.commentaires.php');
+
+$update_mod = new Commentaires;
+$update_mod = $update_mod->update_moderation();
 
 if(isset($_GET['okcom'])){
-    // On effectue du traitement sur les données (contrôleur)
-    // Ici, on doit surtout sécuriser l'affichage
+
     $update_mod->rowCount();
 }
 
 
-
-include_once('model/moderation/delete_moderation.php');
-$delete_mod = delete_moderation();
+$delete_mod = new Commentaires;
+$delete_mod = $delete_mod->delete_moderation();
 
 if(isset($_GET['delcom'])){
-    // On effectue du traitement sur les données (contrôleur)
-    // Ici, on doit surtout sécuriser l'affichage
+
     $delete_mod->rowCount();
 }
 
 
-
-
-include_once('model/moderation/get_moderation.php');
-$moderation_signal = get_moderation();
+$moderation_signal = new Commentaires;
+$moderation_signal = $moderation_signal->get_moderation();
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($moderation_signal as $mod => $mod_signal)
 {
 	$moderation_signal[$mod]['commentaire_ID'] = $mod_signal['commentaire_ID'];

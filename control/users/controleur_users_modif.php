@@ -1,7 +1,8 @@
 <?php
 
-include_once('model/users/update_users_modif.php');
-$update_users = update_users_modif();
+include_once('classes/class.user.php');
+$update_users = new User;
+$update_users = $update_users->update_users_modif();
 
 // quand le formulaire est envoye :
     if(isset($_POST['submit'])){
@@ -56,13 +57,10 @@ $update_users = update_users_modif();
     }
 
 
-
-
-include_once('model/users/get_users_modif.php');
-$users_modif = get_users_modif();
+$users_modif = new User;
+$users_modif = $users_modif->get_users_modif();
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($users_modif as $cle => $modif)
 {
     $users_modif[$cle]['user_ID'] = $modif['user_ID'];

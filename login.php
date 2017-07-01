@@ -1,4 +1,4 @@
-<?php include_once('model/config.php');
+<?php include_once('src/config.php');
 
 // verif si deja connecte
 if( $user->is_logged_in() ){ header('Location: admin.php'); }?>

@@ -42,6 +42,7 @@ a.cl-2{
 		margin-right: 0;
 		text-align: center;
 	}
+
 }
 
 @media all and (max-width: 768px){
@@ -50,4 +51,14 @@ a.cl-2{
 		flex-direction: column;
 		text-align: center;
 	}
+
+		.contact-info.bottom{
+		text-align: center;
+	}
+
+		.image-2{
+		display: none;
+	}
+
 }
+

@@ -5,6 +5,7 @@
     <link href="css/animate.min.css" rel="stylesheet"> 
     <link href="css/lightbox.css" rel="stylesheet"> 
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/main_2.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
 
 
@@ -55,10 +56,10 @@
                         </address>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="contact-form bottom-2">
-                        <p><br /><br /><br /><img src="images/alaska3.jpg" class="img-responsive" alt="image paysage Alaska" width="80%"></p> 
-                    </div>
+                <div class="image-2">
+
+                        <img src="images/alaska3.jpg" class="img-responsive" alt="image paysage Alaska" width="35%">
+
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">

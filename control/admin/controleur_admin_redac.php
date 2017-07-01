@@ -1,7 +1,8 @@
 <?php
 
-include_once('model/admin/insert_chapitres.php');
-$insert_chap = insert_chapitres();
+include_once('classes/class.chapitres.php');
+$insert_chap = new Chapitres();
+$insert_chap = $insert_chap->insert_chapitres();
 
 if(isset($_POST['submit'])){
 

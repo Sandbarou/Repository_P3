@@ -1,6 +1,7 @@
 <?php
-include_once('model/blog/insert_commentaires_blogdetails.php');
-$insert_commentaires = insert_commentaires_blogdetails();
+include_once('classes/class.commentaires.php');
+$insert_commentaires = new Commentaires();
+$insert_commentaires = $insert_commentaires->insert_commentaires_blogdetails();
 
 if(isset($_POST['submit'])){
 
@@ -29,36 +30,17 @@ if(isset($_POST['submit'])){
 }
 
 
-
-
-include_once('model/blog/update_commentaires_blogdetails.php');
-$update_commentaires = update_commentaires_blogdetails();
+$update_commentaires = new Commentaires();
+$update_commentaires = $update_commentaires->update_commentaires_blogdetails();
 
 if(isset($_GET['modcom'])){
-    // On effectue du traitement sur les données (contrôleur)
-    // Ici, on doit surtout sécuriser l'affichage
+
     $update_commentaires->rowCount();
 }
 
 
-
-include_once('model/blog/get_chapitres_blogdetails.php');
-$chapitres_blogdetails = get_chapitres_blogdetails();
-
-// On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
-foreach($chapitres_blogdetails as $chap => $chapitre)
-{
-	$chapitres_blogdetails[$chap]['chapitre_ID'] = $chapitre['chapitre_ID'];
-    $chapitres_blogdetails[$chap]['chapitre_Titre'] = htmlspecialchars($chapitre['chapitre_Titre']);
-    $chapitres_blogdetails[$chap]['chapitre_Auteur'] = htmlspecialchars($chapitre['chapitre_Auteur']);
-    $chapitres_blogdetails[$chap]['chapitre_Contenu'] = nl2br($chapitre['chapitre_Contenu']);
-}
-
-
-
-include_once('model/blog/get_commentaires_blogdetails.php');
-$commentaires_blogdetails = get_commentaires_blogdetails();
+$commentaires_blogdetails = new Commentaires();
+$commentaires_blogdetails = $commentaires_blogdetails->get_commentaires_blogdetails();
 
 // On effectue du traitement sur les données (contrôleur)
 // Ici, on doit surtout sécuriser l'affichage
@@ -72,12 +54,10 @@ foreach($commentaires_blogdetails as $comm => $commentaire)
 }
 
 
-
-include_once('model/blog/get_commentaires.php');
-$commentaires = get_commentaires(0, 3);
+$commentaires = new Commentaires();
+$commentaires = $commentaires->get_commentaires(0, 3);
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($commentaires as $comm => $commentaire)
 {
     $commentaires[$comm]['commentaire_Message'] = htmlspecialchars($commentaire['commentaire_Message']);
@@ -85,11 +65,11 @@ foreach($commentaires as $comm => $commentaire)
 
 
 
-include_once("model/blog/get_chapitres_blog.php");
-$chapitres_blog = get_chapitres_blog();
+include_once('classes/class.chapitres.php');
+$chapitres_blog = new Chapitres();
+$chapitres_blog = $chapitres_blog->get_chapitres_blog();
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($chapitres_blog as $chap => $chapitre)
 {
     $chapitres_blog[$chap]['chapitre_Titre'] = htmlspecialchars($chapitre['chapitre_Titre']);
@@ -97,6 +77,19 @@ foreach($chapitres_blog as $chap => $chapitre)
     $chapitres_blog[$chap]['chapitre_Contenu'] = nl2br($chapitre['chapitre_Contenu']);
 }
 
+
+
+$chapitres_blogdetails = new Chapitres();
+$chapitres_blogdetails = $chapitres_blogdetails->get_chapitres_blogdetails();
+
+// On effectue du traitement sur les données (contrôleur)
+foreach($chapitres_blogdetails as $chap => $chapitre)
+{
+    $chapitres_blogdetails[$chap]['chapitre_ID'] = $chapitre['chapitre_ID'];
+    $chapitres_blogdetails[$chap]['chapitre_Titre'] = htmlspecialchars($chapitre['chapitre_Titre']);
+    $chapitres_blogdetails[$chap]['chapitre_Auteur'] = htmlspecialchars($chapitre['chapitre_Auteur']);
+    $chapitres_blogdetails[$chap]['chapitre_Contenu'] = nl2br($chapitre['chapitre_Contenu']);
+}
 
 
 // On affiche la page (vue)

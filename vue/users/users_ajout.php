@@ -109,7 +109,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                                     <p><label for="user_Email">Email</label><br />
                                     <input type='text' name='user_Email' id="user_Email" size="125" value="<?php if(isset($error)){ echo $_POST['user_Email'];}?>"></p><br />
 
-                                    <p><input type="submit" name="submit" id="submit" value="Ajouter l'utilisateur"></p>
+                                    <input type="submit" name="submit" id="submit" value="Ajouter l'utilisateur">
 
                                 </form>
 

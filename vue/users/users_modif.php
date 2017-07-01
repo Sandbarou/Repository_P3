@@ -113,7 +113,7 @@ foreach($users_modif as $modif)
 
                                     <input type="hidden" name="user_ID" id="user_ID" value="<?php echo $modif['user_ID']; ?>" />
 
-                                    <p><input type="submit" name="submit" id="submit" value="Modifier l'utilisateur"></p>
+                                    <input type="submit" name="submit" id="submit" value="Modifier l'utilisateur">
 
                                 </form>
 <?php

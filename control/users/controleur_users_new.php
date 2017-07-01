@@ -1,6 +1,8 @@
 <?php
-include_once('model/users/insert_users.php');
-$insert_user = insert_users();
+
+include_once('classes/class.user.php');
+$insert_user = new User;
+$insert_user = $insert_user->insert_users();
 
 // quand le formulaire est envoye :
 if(isset($_POST['submit'])){

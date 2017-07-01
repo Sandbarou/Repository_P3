@@ -101,7 +101,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }?>
 
                                     <input type="hidden" name="commentaire_ID" id="commentaire_ID" value="<?php echo $mod_modif['commentaire_ID']; ?>" />
 
-                                    <p><input type="submit" name="submit" id="submit" value="Modifier"></p>
+                                    <input type="submit" name="submit" id="submit" value="Modifier">
 
                                 </form>
     <?php                       

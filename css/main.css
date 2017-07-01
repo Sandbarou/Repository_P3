@@ -369,6 +369,7 @@ ul.sub-menu {
   position: relative;
   border-left: 0;
   margin-bottom: 0;
+  text-align: justify;
 }
 
 .testimonial .media .media-body blockquote:before{
@@ -399,6 +400,7 @@ ul.sub-menu {
 .bottom > address {
   line-height: 22px;
   margin-bottom: 40px;
+  padding-left: 20px;
 }
 
 .form-control {

@@ -1,8 +1,8 @@
 <?php
-//include config
-include_once('model/config.php');
+// config
+include_once('src/config.php');
 
-//log user out
+//deco utilisateur
 $user->logout();
 header("Location:index.php"); 
 

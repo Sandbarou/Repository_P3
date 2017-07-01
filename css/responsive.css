@@ -100,49 +100,9 @@
 
   #home-slider .slider-house {
     width: 350px;
+    margin-right: 50px;
   }
 
-  #home-slider .slider-circle1 {
-    right: 295px;
-    bottom: 140px;
-    width: 20px;
-  }
-
-  #home-slider .slider-circle2 {
-    right: 290px;
-    bottom: 160px;
-    width: 11px;
-  }
-
-  #home-slider .slider-cloud1 {
-    right: 190px;
-    bottom: 160px;
-    width: 60px;
-  }
-
-  #home-slider .slider-cloud2 {
-    right: 260px;
-    bottom: 190px;
-    width: 70px;
-  }
-
-  #home-slider .slider-cloud3 {
-    right: 75px;
-    bottom: 180px;
-    width: 70px;
-  }
-
-  #home-slider .slider-sun {
-    right: 170px;
-    bottom: 210px;
-    width: 60px
-  }
-
-  #home-slider .slider-cycle {
-    right: 350px;
-    bottom: 0;
-    width: 140px;
-  }
 
   /*Pricing Table*/
   .single-price {
@@ -298,6 +258,11 @@
 
   #home-slider .slider-cloud2 {
     width: 100px;
+  }
+
+  #home-slider .slider-house {
+    width: 350px;
+    margin-right: 150px;
   }
 
   /*Pricing Table*/
@@ -544,48 +509,39 @@
   }
 }
 
+
+@media only screen and (max-width : 700px) {
+
+  #home-slider .slider-house {
+    width: 350px;
+    margin-right: 120px;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+
+  #home-slider .slider-house {
+    width: 350px;
+    margin-right: 60px;
+  }
+}
+
+@media only screen and (max-width : 500px) {
+
+  #home-slider .slider-house {
+    width: 350px;
+    margin-right: 40px;
+  }
+}
+
 @media only screen and (max-width : 480px) {
 
-  #home-slider .slider-circle1 {
-    right: 80%;
-    bottom: 100px;
-    width: 15px;
+
+  #home-slider .slider-house {
+    width: 250px;
+    margin-right: 20px;
   }
 
-  #home-slider .slider-circle2 {
-    right: 78%;
-    bottom: 120px;
-    width: 10px;
-  }
-
-  #home-slider .slider-cloud1 {
-    right: 140px;
-    bottom: 140px;
-    width: 60px;
-  }
-
-  #home-slider .slider-cloud2 {
-    right: 210px;
-    bottom: 190px;
-    width: 70px;
-  }
-
-  #home-slider .slider-cloud3 {
-    right: 35px;
-    bottom: 180px;
-    width: 70px;
-  }
-
-  #home-slider .slider-sun {
-    right: 120px;
-    bottom: 180px;
-    width: 60px
-  }
-
-
-  #home-slider .slider-cycle {
-    display: none;
-  }
 
   /* Pricing Table*/
 

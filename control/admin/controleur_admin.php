@@ -1,21 +1,20 @@
 <?php
 
-include_once('model/admin/delete_chapitres.php');
-$delete_chap = delete_chapitres();
+include_once('classes/class.chapitres.php');
+$delete_chap = new Chapitres();
+$delete_chap = $delete_chap->delete_chapitres();
 
 if(isset($_GET['delpost'])){
-    // On effectue du traitement sur les données (contrôleur)
+
     $delete_chap->rowCount();
 }
 
 
 
-
-include_once('model/blog/get_chapitres_blog.php');
-$chapitres_blog = get_chapitres_blog();
+$chapitres_blog = new Chapitres();
+$chapitres_blog = $chapitres_blog->get_chapitres_blog();
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($chapitres_blog as $chap => $chapitre)
 {
 	$chapitres_blog[$chap]['chapitre_ID'] = $chapitre['chapitre_ID'];

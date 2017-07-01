@@ -1,5 +1,7 @@
 <?php
+//Enclenche la temporisation de sortie - démarre la temporisation de sortie. Tant qu'elle est enclenchée, aucune donnée, hormis les en-têtes, n'est envoyée au navigateur, mais temporairement mise en tampon
 ob_start();
+//Démarre une nouvelle session ou reprend une session existante - via l'identifiant de session passé dans une requête GET, POST ou par un cookie
 session_start();
 
 //déclaration base de données
@@ -36,5 +38,8 @@ function __autoload($class) {
      
 }
 
-//création de l'objet $user dans la classe User
+//création de l'objet dans la classe
 $user = new User($bdd); 
+$chapitres = new Chapitres($bdd); 
+$commentaires = new Commentaires($bdd); 
+

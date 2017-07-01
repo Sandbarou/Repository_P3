@@ -34,17 +34,19 @@
 foreach($chapitres_header as $chapitre)
 {
 ?>
-
-
                                 <li><a href="blogdetails.php?chapitre=<?php echo $chapitre['chapitre_ID']; ?>">Dernier chapitre</a></li>
-                        
+<?php
+}
+?>                         
+                            </ul>
+                        </li>
+                    </ul>    
                 </div>
 
+
                 </div>
+
             </div>
         </div>
     </header>
 
-<?php
-}
-?> 

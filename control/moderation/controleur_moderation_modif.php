@@ -1,7 +1,8 @@
 <?php
 
-include_once('model/moderation/update_moderation_modif.php');
-$update_mod_modif = update_moderation_modif();
+include_once('classes/class.commentaires.php');
+$update_mod_modif = new Commentaires;
+$update_mod_modif = $update_mod_modif->update_moderation_modif();
 
 if(isset($_POST['submit'])){
 
@@ -36,12 +37,10 @@ if(isset($_POST['submit'])){
 
 
 
-
-include_once('model/moderation/get_moderation_modif.php');
-$moderation_modif = get_moderation_modif();
+$moderation_modif = new Commentaires;
+$moderation_modif = $moderation_modif->get_moderation_modif();
 
 // On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
 foreach($moderation_modif as $mod => $mod_modif)
 {
 	$moderation_modif[$mod]['commentaire_ID'] = $mod_modif['commentaire_ID'];
