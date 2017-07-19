@@ -1,7 +1,6 @@
 <?php
 
 // si non connecte, retour à la page d'accueil
-$user = new User($bdd); 
 if(!$user->is_logged_in()){ header('Location: index.php'); }
 ?>
 
@@ -59,57 +58,6 @@ if(!$user->is_logged_in()){ header('Location: index.php'); }
 
 <?php
 
-    // quand le formulaire est envoye :
-    if(isset($_POST['submit'])){
-
-        $_POST = array_map( 'stripslashes', $_POST );
-
-        // collecter les donnees du formulaire
-        extract($_POST);
-        
-        // validations
-        if($user_Pseudo == ""){
-            $error[] = "Merci d'entrer un pseudo";
-        }
-
-        if( strlen($user_Pass) >= 0){
-
-            if($user_Pass == " "){
-                $error[] = "Merci d'entrer un mot de passe";
-            }
-
-            if($user_PassConfirm == ""){
-                $error[] = "Merci de confirmer le mot de passe";
-            }
-
-            if($user_Pass != $user_PassConfirm){
-                $error[] = "Les mots de passe ne sont pas identiques";
-            }
-
-        }
-
-        // check if e-mail address is well-formed
-        if(!filter_var($user_Email, FILTER_VALIDATE_EMAIL)){
-            $error[] = "Merci d'entrer une adresse email valide";
-        }
-
-        if(!isset($error)){
-
-            $hashed_user_Pass = $user->create_hash($user_Pass);
-
-            try {
-                    $insert_user->rowCount();
-                } 
-                    catch(PDOException $e) {
-                        echo $e->getMessage();
-                }
-
-                //redirection page principale
-                header('Location: index.php?action=users&ajouté');
-                exit;
-        }
-    }
-
     //verif erreurs
     if(isset($error)){
         foreach($error as $error){
@@ -125,6 +73,7 @@ if(!$user->is_logged_in()){ header('Location: index.php'); }
 
                                 <form action="" method="post">
 
+                                    
                                     <p><label for="user_Pseudo">Pseudo</label><br />
                                     <input type="text" name="user_Pseudo" id="user_Pseudo" size="125" value="<?php if(isset($error)){ echo $_POST['user_Pseudo'];}?>"></p>
 

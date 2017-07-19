@@ -39,7 +39,26 @@ function __autoload($class) {
 }
 
 //création de l'objet dans la classe
-$user = new User($bdd); 
-$chapitres = new Chapitres($bdd); 
-$commentaires = new Commentaires($bdd); 
+$user = new User($bdd);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

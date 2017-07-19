@@ -93,13 +93,6 @@ if(!$user->is_logged_in()){ header('Location: index.php'); }
 
     }
 
-    //verif erreurs
-    if(isset($error)){
-        foreach($error as $error){
-            echo $error.'<br />';
-        }
-    }
-
     foreach($moderation_modif as $mod_modif) : ?>
 
                                 <form action="" method="post">

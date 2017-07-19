@@ -3,13 +3,18 @@
 //création de la classe Chapitres
 class Chapitres{
 
+    private $BIL_ID;
+  	private $BIL_TITRE;
+  	private $BIL_AUTEUR;
+  	private $BIL_CONTENU;
+  	private $BIL_DATE;
 
-    private $_BIL_ID;
-  	private $_BIL_TITRE;
-  	private $_BIL_AUTEUR;
-  	private $_BIL_CONTENU;
-  	private $_BIL_DATE;
-
+    public function __construct($_BIL_TITRE, $_BIL_AUTEUR, $_BIL_CONTENU){
+        $this->BIL_TITRE = $_BIL_TITRE;
+        $this->BIL_AUTEUR = $_BIL_AUTEUR;
+        $this->BIL_CONTENU = $_BIL_CONTENU;   
+    }
+    
    // GETTERS //
 
     public function BIL_ID(){
@@ -48,11 +53,11 @@ class Chapitres{
 
     
     // Renvoie les informations sur un billet
-    public function getBillet($idBillet)
+    public static function getBillet($idBillet)
     {
         global $bdd;
 
-        $billetids = $bdd->prepare('SELECT * FROM T_BILLET WHERE BIL_ID=?');
+        $billetids = $bdd->prepare('SELECT * FROM t_billet WHERE BIL_ID=?');
         $billetids->execute(array($idBillet));
         if ($billetids->rowCount() == 1)
         return $billetids->fetch();  // Accès à la première ligne de résultat
@@ -62,13 +67,13 @@ class Chapitres{
 
     
 
-    public function get_chapitres_index($offset, $limit)
+    public static function get_chapitres_index($offset, $limit)
     {
         global $bdd;
         $offset = (int) $offset;
         $limit = (int) $limit;
             
-        $reponse = $bdd->prepare('SELECT * FROM T_BILLET ORDER BY BIL_DATE ASC LIMIT :offset, :limit');
+        $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY BIL_DATE ASC LIMIT :offset, :limit');
         $reponse->bindParam(':offset', $offset, PDO::PARAM_INT);
         $reponse->bindParam(':limit', $limit, PDO::PARAM_INT);
         $reponse->execute();
@@ -78,27 +83,27 @@ class Chapitres{
     }
 
 
-  	public function get_chapitres_header($offset, $limit)
+  	public static function get_chapitres_header($offset, $limit)
   	{
   	    global $bdd;
         $offset = (int) $offset;
   	    $limit = (int) $limit;
   	        
-  	    $reponse = $bdd->prepare('SELECT * FROM T_BILLET ORDER BY BIL_DATE DESC LIMIT :offset, :limit');
+  	    $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY BIL_DATE DESC LIMIT :offset, :limit');
   	    $reponse->bindParam(':offset', $offset, PDO::PARAM_INT);
   	    $reponse->bindParam(':limit', $limit, PDO::PARAM_INT);
   	    $reponse->execute();
   	    $chapitres_header = $reponse->fetchAll();
-  	    	    
+    
   	    return $chapitres_header;
   	}
 
 
-    public function get_chapitres_blog()
+    public static function get_chapitres_blog()
     {
         global $bdd;
            
-        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM T_BILLET ORDER BY BIL_DATE DESC');
+        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM t_billet ORDER BY BIL_DATE DESC');
         $reponse->execute();
         $chapitres_blog = $reponse->fetchAll();
         
@@ -106,11 +111,11 @@ class Chapitres{
     }
 
 
-    public function get_chapitres_blogdetails()
+    public static function get_chapitres_blogdetails()
     {
         global $bdd;
 
-        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM T_BILLET WHERE BIL_ID = :BIL_ID');
+        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM t_billet WHERE BIL_ID = :BIL_ID');
         $reponse->execute(array(':BIL_ID' => $_GET['id']));
         $chapitres_blogdetails = $reponse->fetchAll();
                 
@@ -118,11 +123,11 @@ class Chapitres{
     }
 
 
-    public function get_chapitres_admin()
+    public static function get_chapitres_admin()
     {
         global $bdd;
             
-        $reponse = $bdd->prepare('SELECT * FROM T_BILLET WHERE BIL_ID = :BIL_ID');
+        $reponse = $bdd->prepare('SELECT * FROM t_billet WHERE BIL_ID = :BIL_ID');
         $reponse->execute(array(':BIL_ID' => $_GET['id']));
         $chapitres_admin = $reponse->fetchAll();
         
@@ -156,12 +161,12 @@ class Chapitres{
                 try {
 
                     //insertion dans la base de donnees
-                    $reponse = $bdd->prepare('INSERT INTO T_BILLET (BIL_AUTEUR, BIL_TITRE, BIL_CONTENU, BIL_DATE) VALUES (:BIL_AUTEUR, :BIL_TITRE, :BIL_CONTENU, :BIL_DATE)') ;
+                    $reponse = $bdd->prepare('INSERT INTO t_billet (BIL_DATE, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU) VALUES (:BIL_DATE, :BIL_TITRE, :BIL_AUTEUR, :BIL_CONTENU)') ;
                     $reponse->execute(array(
-                        ':BIL_AUTEUR' => $BIL_AUTEUR,
-                        ':BIL_TITRE' => $BIL_TITRE,
-                        ':BIL_CONTENU' => $BIL_CONTENU,
-                        ':BIL_DATE' => $BIL_DATE,
+                        ':BIL_DATE' => $this->BIL_DATE,
+                        ':BIL_TITRE' => $this->BIL_TITRE,
+                        ':BIL_AUTEUR' => $this->BIL_AUTEUR,
+                        ':BIL_CONTENU' => $this->BIL_CONTENU,
                     ));
 
                     $insert_chap = $reponse;
@@ -210,13 +215,13 @@ class Chapitres{
                 try {
 
                     //maj base de donnees
-                    $reponse = $bdd->prepare('UPDATE T_BILLET SET BIL_AUTEUR = :BIL_AUTEUR, BIL_TITRE = :BIL_TITRE, BIL_CONTENU = :BIL_CONTENU, BIL_DATE = :BIL_DATE WHERE BIL_ID = :BIL_ID') ;
+                    $reponse = $bdd->prepare('UPDATE t_billet SET BIL_DATE = :BIL_DATE, BIL_TITRE = :BIL_TITRE, BIL_AUTEUR = :BIL_AUTEUR, BIL_CONTENU = :BIL_CONTENU WHERE BIL_ID = :BIL_ID') ;
                     $reponse->execute(array(
-                        ':BIL_AUTEUR' => $BIL_AUTEUR,
-                        ':BIL_TITRE' => $BIL_TITRE,
-                        ':BIL_CONTENU' => $BIL_CONTENU,
-                        ':BIL_DATE' => $BIL_DATE,
                         ':BIL_ID' => $BIL_ID,
+                        ':BIL_DATE' => $BIL_DATE,
+                        ':BIL_TITRE' => $BIL_TITRE,
+                        ':BIL_AUTEUR' => $BIL_AUTEUR,
+                        ':BIL_CONTENU' => $BIL_CONTENU,
                     ));
 
                     $update_chap = $reponse;
@@ -240,7 +245,7 @@ class Chapitres{
 
         if(isset($_GET['delpost'])){ 
 
-            $reponse = $bdd->prepare('DELETE FROM T_BILLET WHERE BIL_ID = :BIL_ID') ;
+            $reponse = $bdd->prepare('DELETE FROM t_billet WHERE BIL_ID = :BIL_ID') ;
             $reponse->execute(array(':BIL_ID' => $_GET['delpost']));
             $delete_chap = $reponse;
 

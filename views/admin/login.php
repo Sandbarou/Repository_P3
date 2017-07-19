@@ -1,7 +1,6 @@
 <?php
 
 // verif si deja connecte
-$user = new User($bdd); 
 if( $user->is_logged_in() ){ header('Location: index.php?action=admin'); }?>
 
 <!DOCTYPE html>
@@ -64,47 +63,22 @@ if( $user->is_logged_in() ){ header('Location: index.php?action=admin'); }?>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
 
-    <?php
-
-    //envoi du formulaire
-    if(isset($_POST['submit'])){
-
-        $user_Pseudo = trim($_POST['user_Pseudo']);
-        $user_Pass = trim($_POST['user_Pass']);
-        
-        if($user->login($user_Pseudo,$user_Pass)){ 
-
-            //si ok connexion partie admin
-            header('Location: index.php?action=admin');
-            exit;
-        
-
-        } else {
-            $message = '<h3><p class="error">Mauvais pseudo ou mot de passe. Veuillez réessayer.</p></h3>';
-        }
-
-    }
-
-    if(isset($message)){ echo $message; }
-    ?>
-
+    <?php if(isset($message)){ echo $message; } ?>
                                 <h2><br />Veuillez vous identifier<br /><br /></h2>
 
                                     <form action="" method="post">
-                                        <p>
+                                        <p>    
 
                                             <label for="user_Pseudo">Votre pseudo </label><br />
-                                            <input type="text" name="user_Pseudo" id="user_Pseudo" size="125" required="required"><br /><br />
+                                            <input type="text" name="user_Pseudo" id="user_Pseudo" size="125" required="required" ><br /><br />
 
                                             <label for="user_Pass">Votre mot de passe </label><br />
-                                            <input type="password" name="user_Pass" id="user_Pass" size="125" required="required"><br /><br /><br />
+                                            <input type="password" name="user_Pass" id="user_Pass" size="125" required="required" ><br /><br /><br />
                                         
                                             <input type="submit" name="submit" id="submit" value="Connexion">
 
                                         </p>
                                     </form><br />
-
-
 
                         </div>
                     </div>

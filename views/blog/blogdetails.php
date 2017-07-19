@@ -143,47 +143,24 @@ if(isset($_GET['modcom'])){
 <?php endforeach; ?>
 
 <?php
-
-    // quand le formulaire est envoyé :
-    if(isset($_POST['submit'])){
-
-        $_POST = array_map( 'stripslashes', $_POST );
-
-        // collecter les données du formulaire
-        extract($_POST);
-        
-        
-            // validations
-            if($COM_AUTEUR == " "){
-                $error[] = "Merci d'indiquer votre nom";
+// quand le formulaire est envoyé :
+if(isset($_POST['submit'])){
+    $_POST = array_map( 'stripslashes', $_POST );
+    extract($_POST);
+            
+    if(!isset($error)){
+        try { $insert_commentaires->rowCount();
+        } 
+            catch(PDOException $e) {
+                echo $e->getMessage();
             }
-
-            if($COM_CONTENU == " "){
-                $error[] = "Merci d'ajouter un message";
-            }
-
-
-        if(!isset($error)){
-            try {        
-                    $insert_commentaires->rowCount();
-                    
-                } 
-                    catch(PDOException $e) {
-                        echo $e->getMessage();
-                }
-        }
-
     }
-
-    if(isset($error)){
-        foreach($error as $error){
-            echo '<p class="error">'.$error.'</p>';
-        }
-    }
-
+}    
 ?>
-                                            
+                                    
+                                         
 <?php foreach($chapitres_blogdetails as $chapitre) : ?>
+                                            
 
                                 </div>
                             
@@ -191,9 +168,9 @@ if(isset($_GET['modcom'])){
 
                                         <form action="" method="post">
                                             <p>
-                                                <label for="commentaire_Nom">Votre nom </label><br />
+                                                <label for="commentaire_Nom">Votre nom</label><br />
                                                 <input type="text" name="COM_AUTEUR" id="COM_AUTEUR" size="125" required="required" value="<?php if(isset($error)){ echo htmlspecialchars($_POST['COM_AUTEUR']);}?>"> <br />
-                                                <label for="commentaire_Message">Votre texte </label><br />
+                                                <label for="commentaire_Message">Votre commentaire</label><br />
                                                 <textarea name="COM_CONTENU" id="COM_CONTENU" rows="6" cols="124" required="required" value="<?php if(isset($error)){ echo htmlspecialchars($_POST['COM_CONTENU']);}?>"> </textarea><br />
                                                 <input type="hidden" name="BIL_ID" id="BIL_ID" value="<?= $chapitre['BIL_ID'] ?>">
                                                 <input type="hidden" name="COM_NIVEAU" id="COM_NIVEAU" value="<?= $_POST["0"] ?>">

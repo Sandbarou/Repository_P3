@@ -64,7 +64,7 @@
                     <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">              
                       <h2><a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>">Dernier chapitre</a></h2>
 <?php endforeach; ?>                         
-                        <br> /<p>Retrouvez le dernier chapitre de mon incroyable roman d'aventure !</p>
+                        <br><p>Retrouvez le dernier chapitre de mon incroyable roman d'aventure !</p>
                     </div>
                 </div>
             </div>

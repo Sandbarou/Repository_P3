@@ -3,42 +3,37 @@
 require_once 'controllers/controleur_front.php';
 require_once 'controllers/controleur_back.php';
 
-if (isset($_GET['action'])) {
-
-    if ($_GET['action'] == 'apropos') { apropos(); }
-
-    if ($_GET['action'] == 'contact') { contact(); }
-
-    if ($_GET['action'] == 'blog') { blog(); }
-
-    if ($_GET['action'] == 'login') { login(); }  
-
-    if ($_GET['action'] == 'admin') { admin(); }  
-
-    if ($_GET['action'] == 'modification') { modification(); }  
-
-    if ($_GET['action'] == 'redaction') { redaction(); }  
-
-    if ($_GET['action'] == 'users') { users(); } 
-
-    if ($_GET['action'] == 'users_new') { users_new(); } 
-
-    if ($_GET['action'] == 'users_modif') { users_modif(); } 
-
-    if ($_GET['action'] == 'moderation') { moderation(); } 
-
-    if ($_GET['action'] == 'mod_modif') { mod_modif(); } 
-
-    if ($_GET['action'] == 'sortie') { sortie(); } 
-
-}
-    
-          
-
+  
 try {
-    if (isset($_GET['action'])) {        
+    if (isset($_GET['action'])) {
+        
+        if ($_GET['action'] == 'apropos') { apropos(); }
 
-        if ($_GET['action'] == 'billet') {
+        elseif ($_GET['action'] == 'contact') { contact(); }
+
+        elseif ($_GET['action'] == 'blog') { blog(); }
+
+        elseif ($_GET['action'] == 'login') { login(); }  
+
+        elseif ($_GET['action'] == 'admin') { admin(); }  
+
+        elseif ($_GET['action'] == 'modification') { modification(); }  
+
+        elseif ($_GET['action'] == 'redaction') { redaction(); }  
+
+        elseif ($_GET['action'] == 'users') { users(); } 
+
+        elseif ($_GET['action'] == 'users_new') { users_new(); } 
+
+        elseif ($_GET['action'] == 'users_modif') { users_modif(); } 
+
+        elseif ($_GET['action'] == 'moderation') { moderation(); } 
+
+        elseif ($_GET['action'] == 'mod_modif') { mod_modif(); } 
+
+        elseif ($_GET['action'] == 'sortie') { sortie(); } 
+
+        elseif($_GET['action'] == 'billet') {
             if (isset($_GET['id'])) {
                 $idBillet = intval($_GET['id']);
                 if ($idBillet != 0)
@@ -60,5 +55,15 @@ accueil(); // action par défaut
 
 }
 catch (Exception $e) {
-    erreur($e->getMessage());
+   erreur($e->getMessage());
 }
+
+
+
+
+
+
+
+
+
+

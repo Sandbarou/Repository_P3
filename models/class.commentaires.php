@@ -3,13 +3,19 @@
 //création de la classe Commentaires
 class Commentaires{
 
-
-    private $_COM_ID;
-  	private $_COM_NIVEAU;
-   	private $_COM_AUTEUR;
-  	private $_COM_CONTENU;
-  	private $_COM_DATE;
-    private $_BIL_ID;
+    private $COM_ID;
+  	private $COM_NIVEAU;
+   	private $COM_AUTEUR;
+  	private $COM_CONTENU;
+  	private $COM_DATE;
+    private $BIL_ID;
+    
+    public function __construct($_COM_NIVEAU, $_COM_AUTEUR, $_COM_CONTENU, $_BIL_ID){
+        $this->COM_NIVEAU = $_COM_NIVEAU;
+        $this->COM_AUTEUR = $_COM_AUTEUR;
+        $this->COM_CONTENU = $_COM_CONTENU;   
+        $this->BIL_ID = $_BIL_ID;    
+    }
 
     // GETTERS //
 
@@ -55,11 +61,11 @@ class Commentaires{
 
     
     // Renvoie la liste des commentaires associés à un billet
-    public function getCommentaires($idBillet)
+    public static function getCommentaires($idBillet)
     {
         global $bdd;
 
-        $commentairesids = $bdd->prepare('SELECT * FROM T_COMMENTAIRE WHERE BIL_ID=?');
+        $commentairesids = $bdd->prepare('SELECT * FROM t_commentaire WHERE BIL_ID=?');
         $commentairesids->execute(array($idBillet));
         
         return $commentairesids;
@@ -68,13 +74,13 @@ class Commentaires{
     
     
 
-    public function get_commentaires($offset, $limit)
+    public static function get_commentaires($offset, $limit)
     {
         global $bdd;
         $offset = (int) $offset;
         $limit = (int) $limit;
             
-        $reponse = $bdd->prepare('SELECT COM_CONTENU, BIL_ID, DATE_FORMAT(COM_DATE, \'%d/%m/%Y\') AS COM_DATE_FR FROM T_COMMENTAIRE ORDER BY COM_DATE DESC LIMIT :offset, :limit');
+        $reponse = $bdd->prepare('SELECT COM_CONTENU, DATE_FORMAT(COM_DATE, \'%d/%m/%Y\') AS COM_DATE_FR, BIL_ID FROM t_commentaire ORDER BY COM_DATE DESC LIMIT :offset, :limit');
         $reponse->bindParam(':offset', $offset, PDO::PARAM_INT);
         $reponse->bindParam(':limit', $limit, PDO::PARAM_INT);
         $reponse->execute();
@@ -84,11 +90,11 @@ class Commentaires{
     }
     
 
-    public function get_commentaires_blogdetails()
+    public static function get_commentaires_blogdetails()
     {
         global $bdd;
             
-        $reponse = $bdd->prepare('SELECT COM_ID, COM_NIVEAU, BIL_ID, COM_AUTEUR, COM_CONTENU, DATE_FORMAT(COM_DATE, \'%d/%m/%Y à %Hh%imin%ss\') AS COM_DATE_FR FROM T_COMMENTAIRE WHERE BIL_ID = :BIL_ID ORDER BY COM_DATE');
+        $reponse = $bdd->prepare('SELECT COM_ID, COM_NIVEAU, COM_AUTEUR, COM_CONTENU, DATE_FORMAT(COM_DATE, \'%d/%m/%Y à %Hh%imin%ss\') AS COM_DATE_FR, BIL_ID FROM t_commentaire WHERE BIL_ID = :BIL_ID ORDER BY COM_DATE');
         $reponse->execute(array(':BIL_ID' => $_GET['id']));
         $commentaires_blogdetails = $reponse->fetchAll();
         
@@ -122,19 +128,18 @@ class Commentaires{
                 try {
 
                 //insertion dans la base de données
-                $reponse = $bdd->prepare('INSERT INTO T_COMMENTAIRE (BIL_ID, COM_AUTEUR, COM_CONTENU, COM_NIVEAU, COM_DATE) VALUES (:BIL_ID, :COM_AUTEUR, :COM_CONTENU, :COM_NIVEAU, :COM_DATE)') ;
+                $reponse = $bdd->prepare('INSERT INTO t_commentaire (COM_NIVEAU, COM_AUTEUR, COM_CONTENU, COM_DATE, BIL_ID,) VALUES (:COM_NIVEAU, :COM_AUTEUR, :COM_CONTENU, :COM_DATE, :BIL_ID)') ;
                 $reponse->execute(array(
-                    ':BIL_ID' => $BIL_ID,
-                    ':COM_AUTEUR' => $COM_AUTEUR,
-                    ':COM_CONTENU' => $COM_CONTENU,
-                    ':COM_NIVEAU' => $COM_NIVEAU,
-                    ':COM_DATE' => date('Y-m-d H:i:s'),
+                    ':COM_NIVEAU' => $this->COM_NIVEAU,
+                    ':COM_AUTEUR' => $this->COM_AUTEUR,
+                    ':COM_CONTENU' => $this->COM_CONTENU,
+                    ':COM_DATE' => $this->COM_DATE,
+                    ':BIL_ID' => $this->BIL_ID,
                 ));
 
                 $insert_commentaires = $reponse;
 
                 return $insert_commentaires;
-
 
                 } catch(PDOException $e) {
                     echo $e->getMessage();
@@ -144,14 +149,14 @@ class Commentaires{
       }
   }
 
-    
+
     public function update_commentaires_blogdetails()
     {
         global $bdd;
 
         if(isset($_GET['modcom'])){ 
-
-          $reponse = $bdd->prepare('UPDATE T_COMMENTAIRE SET COM_NIVEAU = "1" WHERE COM_ID = :COM_ID');
+            
+          $reponse = $bdd->prepare('UPDATE t_commentaire SET COM_NIVEAU = "1" WHERE COM_ID = :COM_ID');
           $reponse->execute(array(':COM_ID' => $_GET['modcom']));
           $update_commentaires = $reponse;
 
@@ -167,7 +172,7 @@ class Commentaires{
 
         if(isset($_GET['delcom'])){ 
 
-            $reponse = $bdd->prepare('DELETE FROM T_COMMENTAIRE WHERE COM_ID = :COM_ID') ;
+            $reponse = $bdd->prepare('DELETE FROM t_commentaire WHERE COM_ID = :COM_ID') ;
             $reponse->execute(array(':COM_ID' => $_GET['delcom']));
             $delete_mod = $reponse;
 
@@ -177,11 +182,11 @@ class Commentaires{
     }
 
 
-    public function get_moderation()
+    public static function get_moderation()
     {
         global $bdd;
             
-        $reponse = $bdd->prepare('SELECT COM_ID, COM_NIVEAU, BIL_ID, COM_AUTEUR, COM_CONTENU, DATE_FORMAT(COM_DATE, \'%d/%m/%Y à %Hh%imin%ss\') AS COM_DATE_FR FROM T_COMMENTAIRE WHERE COM_NIVEAU = "1"');
+        $reponse = $bdd->prepare('SELECT COM_ID, COM_NIVEAU, COM_AUTEUR, COM_CONTENU, DATE_FORMAT(COM_DATE, \'%d/%m/%Y à %Hh%imin%ss\') AS COM_DATE_FR, BIL_ID FROM t_commentaire WHERE COM_NIVEAU = "1"');
         $reponse->execute();
         $moderation_signal = $reponse->fetchAll();
                 
@@ -189,11 +194,11 @@ class Commentaires{
     }
 
 
-    public function get_moderation_modif()
+    public static function get_moderation_modif()
     {
         global $bdd;
             
-        $reponse = $bdd->prepare('SELECT COM_ID, COM_AUTEUR, COM_CONTENU, COM_DATE FROM T_COMMENTAIRE WHERE COM_ID = :COM_ID');
+        $reponse = $bdd->prepare('SELECT COM_ID, COM_AUTEUR, COM_CONTENU, COM_DATE FROM t_commentaire WHERE COM_ID = :COM_ID');
         $reponse->execute(array(':COM_ID' => $_GET['id']));
         $moderation_modif = $reponse->fetchAll();
                 
@@ -207,7 +212,7 @@ class Commentaires{
 
         if(isset($_GET['okcom'])){ 
 
-            $reponse = $bdd->prepare('UPDATE T_COMMENTAIRE SET COM_NIVEAU = "0" WHERE COM_ID = :COM_ID');
+            $reponse = $bdd->prepare('UPDATE t_commentaire SET COM_NIVEAU = "0" WHERE COM_ID = :COM_ID');
             $reponse->execute(array(':COM_ID' => $_GET['okcom']));
             $update_mod = $reponse;
 
@@ -245,12 +250,12 @@ class Commentaires{
 
                 try {
                     //maj base de donnees
-                    $reponse = $bdd->prepare('UPDATE T_COMMENTAIRE SET COM_AUTEUR = :COM_AUTEUR, COM_CONTENU = :COM_CONTENU, COM_DATE = :COM_DATE WHERE COM_ID = :COM_ID');
+                    $reponse = $bdd->prepare('UPDATE t_commentaire SET COM_AUTEUR = :COM_AUTEUR, COM_CONTENU = :COM_CONTENU, COM_DATE = :COM_DATE WHERE COM_ID = :COM_ID');
                     $reponse->execute(array(
-                        ':COM_AUTEUR' => $COM_AUTEUR,
-                        ':COM_CONTENU' => $COM_CONTENU,
-                        ':COM_DATE' => $COM_DATE,
-                        ':COM_ID' => $COM_ID,
+                        ':COM_ID' => $this->COM_ID,
+                        ':COM_AUTEUR' => $this->COM_AUTEUR,
+                        ':COM_CONTENU' => $this->COM_CONTENU,
+                        ':COM_DATE' => $this->COM_DATE,
                     ));
                     $update_mod_modif = $reponse;
 

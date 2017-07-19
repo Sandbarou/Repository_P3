@@ -93,13 +93,6 @@ if(!$user->is_logged_in()){ header('Location: index.php'); }
         
     }
 
-
-    //verif erreurs
-    if(isset($error)){
-        foreach($error as $error){
-            echo '<p class="error">'.$error.'</p>';
-        }
-    }
     ?>
 
 
