@@ -28,7 +28,7 @@ function modification()
     $chapitres_admin = Chapitres::get_chapitres_admin();
 
 
-    // Modifier un billet
+    // Modification d'un billet
     if (isset($_POST['submit'])) {
 
         $_POST = array_map('stripslashes', $_POST);
@@ -50,12 +50,22 @@ function modification()
         }
 
         if (!isset($error)) {
-            $datebillet = date('Y-m-d H:i:s');
-            $update_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
-            $update_chap->setDate($datebillet);
-            $update_chap = $update_chap->update_chapitres();
+            try {
+                $datebillet = date('Y-m-d H:i:s');
+                $update_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
+                $update_chap->setDate($datebillet);
+                $update_chap = $update_chap->update_chapitres();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+            //redirection page principale
+            header('Location: index.php?action=admin&modifié');
+            exit;
         }
+
+
     }
+
     require 'views/admin/articles/backend_modif.php';
 }
 
@@ -65,7 +75,7 @@ function redaction()
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
 
 
-    // Ajouter un nouveau billet
+    // Création d'un nouveau billet
     if (isset($_POST['submit'])) {
 
         $_POST = array_map('stripslashes', $_POST);
@@ -82,13 +92,22 @@ function redaction()
             $error[] = "Merci d'ajouter un contenu";
         }
 
+
         if (!isset($error)) {
-            $datebillet = date('Y-m-d H:i:s');
-            $insert_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
-            $insert_chap->setDate($datebillet);
-            $insert_chap = $insert_chap->insert_chapitres();
+            try {
+                $insert_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
+                $insert_chap = $insert_chap->insert_chapitres();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+
+            //redirection page principale
+            header('Location: index.php?action=admin&ajouté');
+            exit;
         }
+
     }
+
     require 'views/admin/articles/backend_redac.php';
 }
 
@@ -117,53 +136,50 @@ function users_modif()
 
     // Modification d'un utilisateur
     $user = new User($bdd);
-    if(isset($_POST['submit'])){
+    if (isset($_POST['submit'])) {
 
         // collecter les données du formulaire
         extract($_POST);
 
         // validations
-        if($user_Pseudo ==''){
+        if ($user_Pseudo == '') {
             $error[] = "Merci d'entrer un pseudo";
         }
 
-        if( strlen($user_Pass) > 0){
+        if (strlen($user_Pass) > 0) {
 
-            if($user_Pass ==''){
+            if ($user_Pass == '') {
                 $error[] = "Merci d'entrer un mot de passe";
             }
 
-            if($user_PassConfirm ==''){
+            if ($user_PassConfirm == '') {
                 $error[] = "Merci de confirmer le mot de passe";
             }
 
-            if($user_Pass != $user_PassConfirm){
+            if ($user_Pass != $user_PassConfirm) {
                 $error[] = "Les mots de passe ne sont pas identiques";
             }
 
         }
 
         // check if e-mail address is well-formed
-        if(!filter_var($user_Email, FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($user_Email, FILTER_VALIDATE_EMAIL)) {
             $error[] = "Merci d'entrer une adresse email valide";
         }
 
-        if(!isset($error)){
+        if (!isset($error)) {
             try {
-                if(isset($user_Pass)){
+                if (isset($user_Pass)) {
                     $hashed_user_Pass = $user->create_hash($user_Pass);
 
                     $update_users = new User();
                     $update_users = $update_users->update_users_modif();
 
-                }
-                else {
+                } else {
                     $update_users = new User();
                     $update_users = $update_users->update_users_modif();
                 }
-            }
-
-            catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo $e->getMessage();
             }
 
@@ -186,48 +202,47 @@ function users_new()
 
     // Ajout d'un utilisateur
     $user = new User($bdd);
-    if(isset($_POST['submit'])){
+    if (isset($_POST['submit'])) {
 
-        $_POST = array_map( 'stripslashes', $_POST );
+        $_POST = array_map('stripslashes', $_POST);
 
         // collecter les donnees du formulaire
         extract($_POST);
 
         // validations
-        if($user_Pseudo == ""){
+        if ($user_Pseudo == "") {
             $error[] = "Merci d'entrer un pseudo";
         }
 
-        if( strlen($user_Pass) >= 0){
+        if (strlen($user_Pass) >= 0) {
 
-            if($user_Pass == " "){
+            if ($user_Pass == " ") {
                 $error[] = "Merci d'entrer un mot de passe";
             }
 
-            if($user_PassConfirm == ""){
+            if ($user_PassConfirm == "") {
                 $error[] = "Merci de confirmer le mot de passe";
             }
 
-            if($user_Pass != $user_PassConfirm){
+            if ($user_Pass != $user_PassConfirm) {
                 $error[] = "Les mots de passe ne sont pas identiques";
             }
 
         }
 
         // check if e-mail address is well-formed
-        if(!filter_var($user_Email, FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($user_Email, FILTER_VALIDATE_EMAIL)) {
             $error[] = "Merci d'entrer une adresse email valide";
         }
 
-        if(!isset($error)){
+        if (!isset($error)) {
 
             $hashed_user_Pass = $user->create_hash($user_Pass);
 
             try {
                 $insert_user = new User();
                 $insert_user = $insert_user->insert_users();
-            }
-            catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo $e->getMessage();
             }
 
@@ -271,7 +286,7 @@ function mod_modif()
 
         $_POST = array_map('stripslashes', $_POST);
 
-        // collecter les données du formulaire
+        // collecter les donnees du formulaire
         extract($_POST);
 
         // validations
@@ -288,13 +303,21 @@ function mod_modif()
         }
 
         if (!isset($error)) {
-            $datecommentaire = date('Y-m-d H:i:s');
-            $update_mod_modif = new Commentaires($COM_NIVEAU, $COM_AUTEUR, $COM_CONTENU, $BIL_ID);
-            $update_mod_modif->setCom_Date($datecommentaire);
-            $update_mod_modif = $update_mod_modif->update_moderation_modif();
+            try {
+                $datecommentaire = date('Y-m-d H:i:s');
+                $update_mod_modif = new Commentaires($COM_NIVEAU, $COM_AUTEUR, $COM_CONTENU, $BIL_ID);
+                $update_mod_modif->setCom_Date($datecommentaire);
+                $update_mod_modif = $update_mod_modif->update_moderation_modif();
 
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+            header('Location: index.php?action=moderation&modifié');
+            exit;
         }
+
     }
+
     require 'views/admin/moderation/moderation_modif.php';
 }
 

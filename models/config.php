@@ -10,32 +10,33 @@ $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 //set timezone
-setlocale(LC_TIME, 'fr','fr_FR','fr_FR@euro','fr_FR.utf8','fr-FR','fra');
-strftime(" %d %b %Y "); 
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
+strftime(" %d %b %Y ");
 date_default_timezone_set('Europe/Paris');
 
 
 //chargement de toutes les classes
-function __autoload($class) {
-   
-   //Convert all characters to lowercase
-   $class = strtolower($class);
+function __autoload($class)
+{
 
-   $classpath = 'models/class.'.$class . '.php';
-   if ( file_exists($classpath)) {
-      require_once $classpath;
-    }     
+    //Convert all characters to lowercase
+    $class = strtolower($class);
 
-   $classpath = '../models/class.'.$class . '.php';
-   if ( file_exists($classpath)) {
-      require_once $classpath;
+    $classpath = 'models/class.' . $class . '.php';
+    if (file_exists($classpath)) {
+        require_once $classpath;
     }
-    
-   $classpath = '../../models/class.'.$class . '.php';
-   if ( file_exists($classpath)) {
-      require_once $classpath;
-    }         
-     
+
+    $classpath = '../models/class.' . $class . '.php';
+    if (file_exists($classpath)) {
+        require_once $classpath;
+    }
+
+    $classpath = '../../models/class.' . $class . '.php';
+    if (file_exists($classpath)) {
+        require_once $classpath;
+    }
+
 }
 
 //création de l'objet dans la classe

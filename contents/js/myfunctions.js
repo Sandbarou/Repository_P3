@@ -24,7 +24,7 @@ function okcom(COM_ID, COM_AUTEUR) {
 
 function deluser(user_ID, user_Pseudo) {
     "use strict";
-    if  (confirm("Etes-vous sûr de vouloir effacer l'utilisateur suivant de la base de données : " + user_Pseudo + "")) {
+    if (confirm("Etes-vous sûr de vouloir effacer l'utilisateur suivant de la base de données : " + user_Pseudo + "")) {
         window.location.href = 'index.php?action=users&deluser=' + user_ID;
     }
 }

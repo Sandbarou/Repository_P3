@@ -1,8 +1,8 @@
 <?php
 
+//déco utilisateur
 
-//deco utilisateur
 $user->logout();
-header("Location:index.php"); 
+header("Location:index.php");
 
 ?>
