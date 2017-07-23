@@ -1,11 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,7 +15,6 @@ if (!$user->is_logged_in()) {
     <script type="text/javascript" src="contents/js/lightbox.min.js"></script>
     <script type="text/javascript" src="contents/js/wow.min.js"></script>
     <script type="text/javascript" src="contents/js/main.js"></script>
-
 
     <?php include("views/window_title.php"); ?>
 
@@ -52,8 +43,7 @@ if (!$user->is_logged_in()) {
 
 <section id="blog-details" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Ajout d'un utilisateur</h1></p><br/>
+        <h1 class="cl-3">Ajout d'un utilisateur</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">

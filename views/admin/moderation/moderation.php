@@ -1,32 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-$user = new User($bdd);
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-
-//message quand on supprime un commentaire
-if (isset($_GET['delcom'])) {
-
-    $delete_mod->rowCount();
-
-    header('Location: index.php?action=moderation&effacé');
-    exit;
-}
-
-//message quand on valide un commentaire
-if (isset($_GET['okcom'])) {
-
-    $update_mod->rowCount();
-
-    header('Location: index.php?action=moderation&validé');
-    exit;
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -71,8 +42,7 @@ if (isset($_GET['okcom'])) {
 
 <section id="blog" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Liste des commentaires signalés</h1></p><br/>
+        <h1 class="cl-3">Liste des commentaires signalés</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">
@@ -94,21 +64,21 @@ if (isset($_GET['okcom'])) {
 
                         <div class="col-sm-12 col-md-12">
                             <div class="single-blog single-column">
-                                <img src="contents/images/blog/<?= $mod_signal['BIL_ID'] ?>.jpg" class="img-responsive"
+                                <img src="contents/images/blog/<?= $mod_signal['bil_ID'] ?>.jpg" class="img-responsive"
                                      width="30%" alt="illustration"><br/>
                                 <h2 class="post-title bold-2"><a
-                                            href="<?= "index.php?action=billet&id=" . $mod_signal['BIL_ID'] ?>">Commentaire
-                                        de <?= $mod_signal['COM_AUTEUR'] ?> </a></h2>
-                                <h5>Posté le <?= $mod_signal['COM_DATE_FR'] ?> </h5>
-                                <h3 class="post-author"><?= $mod_signal['COM_CONTENU'] ?> </h3>
+                                            href="<?= "index.php?action=billet&id=" . $mod_signal['bil_ID'] ?>">Commentaire
+                                        de <?= $mod_signal['com_Auteur'] ?> </a></h2>
+                                <h5>Posté le <?= $mod_signal['com_Date_FR'] ?> </h5>
+                                <h3 class="post-author"><?= $mod_signal['com_Contenu'] ?> </h3>
                                 <p><i class="fa fa-pencil-square-o"></i><a
-                                            href="<?= "index.php?action=mod_modif&id=" . $mod_signal['COM_ID'] ?>">
+                                            href="<?= "index.php?action=mod_modif&id=" . $mod_signal['com_ID'] ?>">
                                         Modifier ce commentaire </a></p>
                                 <p><i class="fa fa-check"></i><a
-                                            href="javascript:okcom('<?= $mod_signal['COM_ID'] ?>','<?= $mod_signal['COM_AUTEUR'] ?>')">
+                                            href="javascript:okcom('<?= $mod_signal['com_ID'] ?>','<?= $mod_signal['com_Auteur'] ?>')">
                                         Valider ce commentaire </a></p>
                                 <p><i class="fa fa-times"></i><a
-                                            href="javascript:delcom('<?= $mod_signal['COM_ID'] ?>','<?= $mod_signal['COM_AUTEUR'] ?>')">
+                                            href="javascript:delcom('<?= $mod_signal['com_ID'] ?>','<?= $mod_signal['com_Auteur'] ?>')">
                                         Effacer ce commentaire </a></p>
                                 <hr style="height:3px" ; color="grey" ;>
 

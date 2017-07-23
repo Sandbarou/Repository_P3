@@ -30,7 +30,7 @@
                         <ul role="menu" class="sub-menu">
                             <li><a href="index.php?action=blog">Tous les chapitres</a></li>
                             <?php foreach ($chapitres_header as $chapitre) : ?>
-                                <li><a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>">Dernier
+                                <li><a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>">Dernier
                                         chapitre</a></li>
                             <?php endforeach; ?>
                         </ul>
@@ -43,4 +43,3 @@
 
     </div>
 </header>
-

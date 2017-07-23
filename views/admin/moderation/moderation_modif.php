@@ -1,12 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-$user = new User($bdd);
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -49,8 +40,7 @@ if (!$user->is_logged_in()) {
 
 <section id="blog" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Modification d'un commentaire</h1></p><br/>
+        <h1 class="cl-3">Modification d'un commentaire</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">
@@ -72,20 +62,20 @@ if (!$user->is_logged_in()) {
 
                                         <form action="" method="post">
 
-                                            <p><label for="COM_AUTEUR"> Nom</label><br/>
-                                                <input type="text" name="COM_AUTEUR" id="COM_AUTEUR" size="125"
-                                                       value="<?= $mod_modif['COM_AUTEUR'] ?>"></p>
+                                            <p><label for="com_Auteur"> Nom</label><br/>
+                                                <input type="text" name="com_Auteur" id="com_Auteur" size="125"
+                                                       value="<?= $mod_modif['com_Auteur'] ?>"></p>
 
-                                            <p><label for="COM_CONTENU">Commentaire</label><br/>
-                                                <textarea name="COM_CONTENU" id="COM_CONTENU" rows="6"
-                                                          cols="124"> <?= $mod_modif['COM_CONTENU'] ?> </textarea></p>
+                                            <p><label for="com_Contenu">Commentaire</label><br/>
+                                                <textarea name="com_Contenu" id="com_Contenu" rows="6"
+                                                          cols="124"> <?= $mod_modif['com_Contenu'] ?> </textarea></p>
 
-                                            <p><label for="COM_DATE"> Posté le</label><br/>
-                                                <input type="datetime" name="COM_DATE" id="COM_DATE" size="125"
-                                                       value="<?= $mod_modif['COM_DATE'] ?>"></p>
+                                            <p><label for="com_Date"> Posté le</label><br/>
+                                                <input type="datetime" name="com_Date" id="com_Date" size="125"
+                                                       value="<?= $mod_modif['com_Date'] ?>"></p>
 
-                                            <input type="hidden" name="COM_ID" id="COM_ID"
-                                                   value="<?= $mod_modif['COM_ID'] ?>"/>
+                                            <input type="hidden" name="com_ID" id="com_ID"
+                                                   value="<?= $mod_modif['com_ID'] ?>"/>
 
                                             <input type="submit" name="submit" id="submit" value="Modifier">
 

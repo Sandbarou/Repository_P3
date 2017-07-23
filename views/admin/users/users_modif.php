@@ -1,11 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,8 +40,7 @@ if (!$user->is_logged_in()) {
 
 <section id="blog-details" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Modification de l'utilisateur</h1></p><br/>
+        <h1 class="cl-3">Modification de l'utilisateur</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">
@@ -68,8 +59,7 @@ if (!$user->is_logged_in()) {
                                     }
                                 }
 
-                                foreach ($users_modif as $modif) {
-                                    ?>
+                                foreach ($users_modif as $modif) : ?>
 
                                     <form action="" method="post">
 
@@ -95,9 +85,7 @@ if (!$user->is_logged_in()) {
                                         <input type="submit" name="submit" id="submit" value="Modifier l'utilisateur">
 
                                     </form>
-                                    <?php
-                                }
-                                ?>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>

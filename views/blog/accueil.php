@@ -61,11 +61,11 @@
             <div class="single-features">
                 <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
                     <?php foreach ($chapitres_header as $chapitre) : ?>
-                    <img src="contents/images/blog/<?= $chapitre['BIL_ID'] ?>.jpg" class="img-responsive"
+                    <img src="contents/images/blog/<?= $chapitre['bil_ID'] ?>.jpg" class="img-responsive"
                          alt="illustration">
                 </div>
                 <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
-                    <h2><a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>">Dernier chapitre</a></h2>
+                    <h2><a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>">Dernier chapitre</a></h2>
                     <?php endforeach; ?>
                     <br>
                     <p>Retrouvez le dernier chapitre de mon incroyable roman d'aventure !</p>
@@ -86,10 +86,10 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="contents/images/home/icon<?= $chapitre['BIL_ID'] ?>.png" alt="illustration">
+                            <img src="contents/images/home/icon<?= $chapitre['bil_ID'] ?>.png" alt="illustration">
                         </div>
                         <h2>
-                            <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"> <?= $chapitre['BIL_TITRE'] ?> </a>
+                            <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"> <?= $chapitre['bil_Titre'] ?> </a>
                         </h2>
                         <p>Retrouvez les aventures du nouveau roman de Jean Forteroche !</p>
                     </div>

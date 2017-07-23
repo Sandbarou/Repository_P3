@@ -1,12 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-$user = new User($bdd);
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,7 +15,6 @@ if (!$user->is_logged_in()) {
     <script type="text/javascript" src="contents/js/lightbox.min.js"></script>
     <script type="text/javascript" src="contents/js/wow.min.js"></script>
     <script type="text/javascript" src="contents/js/main.js"></script>
-
 
     <?php include("views/window_title.php"); ?>
 
@@ -51,11 +41,9 @@ if (!$user->is_logged_in()) {
 
 <?php include("views/admin/menu_admin.php"); ?>
 
-
 <section id="blog-details" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Ajout d'un chapitre</h1> </p> <br/>
+        <h1 class="cl-3">Ajout d'un chapitre</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">
@@ -78,27 +66,27 @@ if (!$user->is_logged_in()) {
 
                                 <form action="" method="post">
 
-                                    <p><label for="BIL_TITRE">Titre du chapitre</label><br/>
-                                        <input type="text" name="BIL_TITRE" id="BIL_TITRE" size="125"
+                                    <p><label for="bil_Titre">Titre du chapitre</label><br/>
+                                        <input type="text" name="bil_Titre" id="bil_Titre" size="125"
                                                value="<?php if (isset($error)) {
-                                                   echo $_POST['BIL_TITRE'];
+                                                   echo $_POST['bil_Titre'];
                                                } ?>"></p>
 
-                                    <p><label for="BIL_AUTEUR">Auteur</label><br/>
-                                        <input type="text" name="BIL_AUTEUR" id="BIL_AUTEUR" size="125"
+                                    <p><label for="bil_Auteur">Auteur</label><br/>
+                                        <input type="text" name="bil_Auteur" id="bil_Auteur" size="125"
                                                value="<?php if (isset($error)) {
-                                                   echo $_POST['BIL_AUTEUR'];
+                                                   echo $_POST['bil_Auteur'];
                                                } ?>"></p>
 
-                                    <p><label for="BIL_DATE">Date</label><br/>
-                                        <input type="date" name="BIL_DATE" id="BIL_DATE" size="125"
+                                    <p><label for="bil_Date">Date</label><br/>
+                                        <input type="date" name="bil_Date" id="bil_Date" size="125"
                                                value="<?php if (isset($error)) {
-                                                   echo $_POST['BIL_DATE'];
+                                                   echo $_POST['bil_Date'];
                                                } ?>"></p>
 
-                                    <p><label for="BIL_CONTENU">Contenu du chapitre</label><br/>
-                                        <textarea name="BIL_CONTENU" id="BIL_CONTENU"><?php if (isset($error)) {
-                                                echo $_POST['BIL_CONTENU'];
+                                    <p><label for="bil_Contenu">Contenu du chapitre</label><br/>
+                                        <textarea name="bil_Contenu" id="bil_Contenu"><?php if (isset($error)) {
+                                                echo $_POST['bil_Contenu'];
                                             } ?></textarea></p><br/>
 
                                     <input type="submit" name="submit" id="submit" value="Ajouter">

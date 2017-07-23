@@ -6,59 +6,78 @@ require_once 'models/class.chapitres.php';
 require_once 'models/class.user.php';
 
 
-// -----  Affiche la page principale admin et liste des billets
-function admin()
+function admin() // Affiche la page principale admin et liste des billets
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
     $chapitres_blog = Chapitres::get_chapitres_blog();
 
 
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
+
     // Effacer un billet
     if (isset($_GET['delpost'])) {
-        $delete_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
+
+        $delete_chap = new Chapitres($bil_Titre, $bil_Auteur, $bil_Contenu);
         $delete_chap = $delete_chap->delete_chapitres();
+
+        header('Location: index.php?action=admin&effacé');
+
+        exit;
     }
+
     require 'views/admin/articles/backend.php';
 }
 
-// ----- Affiche la page de modification de billets
-function modification()
+// -------------------------------------------
+
+
+function modification() // Affiche la page de modification de billets
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
     $chapitres_admin = Chapitres::get_chapitres_admin();
 
+
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
 
     // Modification d'un billet
     if (isset($_POST['submit'])) {
 
         $_POST = array_map('stripslashes', $_POST);
 
-        // collecter les donnees du formulaire
+        // Collecter les données du formulaire
         extract($_POST);
 
-        // validations
-        if ($BIL_ID == '') {
+        // Validations
+        if ($bil_ID == '') {
             $error[] = "L'ID de ce chapitre n'est pas valide !";
         }
 
-        if ($BIL_TITRE == '') {
+        if ($bil_Titre == '') {
             $error[] = "Merci d'écrire un titre";
         }
 
-        if ($BIL_CONTENU == '') {
+        if ($bil_Contenu == '') {
             $error[] = "Merci d'ajouter un contenu";
         }
 
         if (!isset($error)) {
             try {
                 $datebillet = date('Y-m-d H:i:s');
-                $update_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
+                $update_chap = new Chapitres($bil_Titre, $bil_Auteur, $bil_Contenu);
                 $update_chap->setDate($datebillet);
                 $update_chap = $update_chap->update_chapitres();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-            //redirection page principale
+            // Redirection page principale
             header('Location: index.php?action=admin&modifié');
             exit;
         }
@@ -69,10 +88,19 @@ function modification()
     require 'views/admin/articles/backend_modif.php';
 }
 
-// ----- Affiche la page de rédaction de billets
-function redaction()
+// -------------------------------------------
+
+
+function redaction() // Affiche la page de rédaction de billets
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
+
+
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
 
 
     // Création d'un nouveau billet
@@ -80,28 +108,28 @@ function redaction()
 
         $_POST = array_map('stripslashes', $_POST);
 
-        // collecter les donnees du formulaire
+        // Collecter les données du formulaire
         extract($_POST);
 
-        // validations
-        if ($BIL_TITRE == '') {
+        // Validations
+        if ($bil_Titre == '') {
             $error[] = "Merci d'écrire un titre";
         }
 
-        if ($BIL_CONTENU == '') {
+        if ($bil_Contenu == '') {
             $error[] = "Merci d'ajouter un contenu";
         }
 
 
         if (!isset($error)) {
             try {
-                $insert_chap = new Chapitres($BIL_TITRE, $BIL_AUTEUR, $BIL_CONTENU);
+                $insert_chap = new Chapitres($bil_Titre, $bil_Auteur, $bil_Contenu);
                 $insert_chap = $insert_chap->insert_chapitres();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
 
-            //redirection page principale
+            // Redirection page principale
             header('Location: index.php?action=admin&ajouté');
             exit;
         }
@@ -111,37 +139,67 @@ function redaction()
     require 'views/admin/articles/backend_redac.php';
 }
 
-// ----- Affiche la liste des utilisateurs
-function users()
+// -------------------------------------------
+
+
+function users() // Affiche la liste des utilisateurs
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
 
     $users_list = new User();
     $users_list = $users_list->get_users();
 
-    $delete_user = new User();
-    $delete_user = $delete_user->delete_users();
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
+
+
+    // Effacer un utilisateur
+    if (isset($_GET['deluser'])) {
+
+        // Toutes les ID autorisées sauf le 1 pour ne pas effacer l'admin principal
+        if ($_GET['deluser'] != '1') {
+
+            $delete_user = new User();
+            $delete_user = $delete_user->delete_users();
+
+            header('Location: index.php?action=users&effacé');
+
+            exit;
+
+        }
+    }
 
     require 'views/admin/users/users.php';
 }
 
+// -------------------------------------------
 
-// ----- Affiche le formulaire de modification des utilisateurs
-function users_modif()
+
+function users_modif() // Affiche le formulaire de modification des utilisateurs
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
 
     $users_modif = new User();
     $users_modif = $users_modif->get_users_modif();
 
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
+
+
     // Modification d'un utilisateur
     $user = new User($bdd);
     if (isset($_POST['submit'])) {
 
-        // collecter les données du formulaire
+        // Collecter les données du formulaire
         extract($_POST);
 
-        // validations
+        // Validations
         if ($user_Pseudo == '') {
             $error[] = "Merci d'entrer un pseudo";
         }
@@ -162,7 +220,7 @@ function users_modif()
 
         }
 
-        // check if e-mail address is well-formed
+        // Vérifier si le format email est correct
         if (!filter_var($user_Email, FILTER_VALIDATE_EMAIL)) {
             $error[] = "Merci d'entrer une adresse email valide";
         }
@@ -183,7 +241,7 @@ function users_modif()
                 echo $e->getMessage();
             }
 
-            //redirection page principale
+            // Redirection page principale
             header('Location: index.php?action=users&modifié');
             exit;
         }
@@ -193,12 +251,18 @@ function users_modif()
     require 'views/admin/users/users_modif.php';
 }
 
+// -------------------------------------------
 
-// ----- Affiche le formulaire d'ajout des utilisateurs
-function users_new()
+
+function users_new() // Affiche le formulaire d'ajout des utilisateurs
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
 
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
 
     // Ajout d'un utilisateur
     $user = new User($bdd);
@@ -206,10 +270,10 @@ function users_new()
 
         $_POST = array_map('stripslashes', $_POST);
 
-        // collecter les donnees du formulaire
+        // Collecter les données du formulaire
         extract($_POST);
 
-        // validations
+        // Validations
         if ($user_Pseudo == "") {
             $error[] = "Merci d'entrer un pseudo";
         }
@@ -230,7 +294,7 @@ function users_new()
 
         }
 
-        // check if e-mail address is well-formed
+        // Vérifier si le format email est correct
         if (!filter_var($user_Email, FILTER_VALIDATE_EMAIL)) {
             $error[] = "Merci d'entrer une adresse email valide";
         }
@@ -246,7 +310,7 @@ function users_new()
                 echo $e->getMessage();
             }
 
-            //redirection page principale
+            // Redirection page principale
             header('Location: index.php?action=users&ajouté');
             exit;
         }
@@ -256,29 +320,57 @@ function users_new()
     require 'views/admin/users/users_new.php';
 }
 
-// ----- Affiche les commentaires en attente de modération
-function moderation()
+// -------------------------------------------
+
+
+function moderation() // Affiche les commentaires en attente de modération
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
     $moderation_signal = Commentaires::get_moderation();
 
-    if (isset($_GET['delcom'])) {
-        $delete_mod = new Commentaires($COM_NIVEAU, $COM_AUTEUR, $COM_CONTENU, $BIL_ID);
-        $delete_mod = $delete_mod->delete_moderation();
+
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
     }
 
-    if (isset($_GET['okcom'])) {
-        $update_mod = new Commentaires($COM_NIVEAU, $COM_AUTEUR, $COM_CONTENU, $BIL_ID);
-        $update_mod = $update_mod->update_moderation();
+    // Supprimer un commentaire
+    if (isset($_GET['delcom'])) {
+
+        $delete_mod = new Commentaires($com_Niveau, $com_Auteur, $com_Contenu, $bil_ID);
+        $delete_mod = $delete_mod->delete_moderation();
+
+        header('Location: index.php?action=moderation&effacé');
+        exit;
     }
+
+    // Valider un commentaire
+    if (isset($_GET['okcom'])) {
+
+        $update_mod = new Commentaires($com_Niveau, $com_Auteur, $com_Contenu, $bil_ID);
+        $update_mod = $update_mod->update_moderation();
+
+        header('Location: index.php?action=moderation&validé');
+        exit;
+    }
+
     require 'views/admin/moderation/moderation.php';
 }
 
-// ----- Affiche le formulaire de modification des commentaires en attente de modération
-function mod_modif()
+// -------------------------------------------
+
+
+function mod_modif() // Affiche le formulaire de modification des commentaires en attente de modération
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
     $moderation_modif = Commentaires::get_moderation_modif();
+
+    // Si non connecté, retour à la page d'accueil
+    $user = new User($bdd);
+    if (!$user->is_logged_in()) {
+        header('Location: index.php');
+    }
 
 
     // Modifier les commentaires signalés
@@ -286,26 +378,26 @@ function mod_modif()
 
         $_POST = array_map('stripslashes', $_POST);
 
-        // collecter les donnees du formulaire
+        // Collecter les données du formulaire
         extract($_POST);
 
-        // validations
-        if ($COM_ID == '') {
+        // Validations
+        if ($com_ID == '') {
             $error[] = "L'ID de ce commentaire n'est pas valide !";
         }
 
-        if ($COM_AUTEUR == '') {
+        if ($com_Auteur == '') {
             $error[] = "Merci d'écrire un nom";
         }
 
-        if ($COM_CONTENU == '') {
+        if ($com_Contenu == '') {
             $error[] = "Merci d'ajouter un contenu";
         }
 
         if (!isset($error)) {
             try {
                 $datecommentaire = date('Y-m-d H:i:s');
-                $update_mod_modif = new Commentaires($COM_NIVEAU, $COM_AUTEUR, $COM_CONTENU, $BIL_ID);
+                $update_mod_modif = new Commentaires($com_Niveau, $com_Auteur, $com_Contenu, $bil_ID);
                 $update_mod_modif->setCom_Date($datecommentaire);
                 $update_mod_modif = $update_mod_modif->update_moderation_modif();
 
@@ -321,11 +413,14 @@ function mod_modif()
     require 'views/admin/moderation/moderation_modif.php';
 }
 
-// ----- Quitte la partie admin, retour à la page d'accueil
-function sortie()
+// -------------------------------------------
+
+
+function sortie() // Quitter la partie admin, retour à la page d'accueil
 {
     $chapitres_header = Chapitres::get_chapitres_header(0, 1);
 
     $user = new User();
     require 'views/admin/logout.php';
 }
+// ------------------------------------------- 

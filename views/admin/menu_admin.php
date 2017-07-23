@@ -30,7 +30,7 @@
                                 utilisateur</a></li>
                         <li class="dropdown-2"><a class="cl-2" href="index.php?action=moderation">Modération des
                                 commentaires</a></li>
-                        <li class="dropdown-2"><a class="cl-2" href="index.php?action=sortie"> Déconnexion </a></li>
+                        <li class="dropdown-2"><a class="cl-2" href="index.php?action=sortie">Déconnexion</a></li>
                     </ul>
 
                 </div>

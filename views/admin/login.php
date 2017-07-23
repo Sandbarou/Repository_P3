@@ -1,10 +1,3 @@
-<?php
-
-// verif si deja connecte
-if ($user->is_logged_in()) {
-    header('Location: index.php?action=admin');
-} ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

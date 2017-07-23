@@ -1,12 +1,3 @@
-<?php
-
-// si non connecte, retour à la page de login
-$user = new User($bdd);
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,14 +39,11 @@ if (!$user->is_logged_in()) {
 <?php include("views/header.php"); ?>
 <!--/#header-->
 
-
 <?php include("views/admin/menu_admin.php"); ?>
-
 
 <section id="blog-details" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Modification du chapitre</h1></p><br/>
+        <h1 class="cl-3">Modification du chapitre</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">
@@ -79,24 +67,24 @@ if (!$user->is_logged_in()) {
                                     <form action="" method="post">
 
                                         <p><label for="chapitre_Titre">Titre du chapitre</label><br/>
-                                            <input type="text" name="BIL_TITRE" id="BIL_TITRE" size="125"
-                                                   value="<?= $chapitres['BIL_TITRE'] ?>"></p>
+                                            <input type="text" name="bil_Titre" id="bil_Titre" size="125"
+                                                   value="<?= $chapitres['bil_Titre'] ?>"></p>
 
                                         <p><label for="chapitre_Auteur">Auteur</label><br/>
-                                            <input type="text" name="BIL_AUTEUR" id="BIL_AUTEUR" size="125"
-                                                   value="<?= $chapitres['BIL_AUTEUR'] ?>"></p>
+                                            <input type="text" name="bil_Auteur" id="bil_Auteur" size="125"
+                                                   value="<?= $chapitres['bil_Auteur'] ?>"></p>
 
                                         <p><label for="chapitre_Date">Date</label><br/>
-                                            <input type="date" name="BIL_DATE" id="BIL_DATE" size="125"
-                                                   value="<?= $chapitres['BIL_DATE'] ?>"></p>
+                                            <input type="date" name="bil_Date" id="bil_Date" size="125"
+                                                   value="<?= $chapitres['bil_Date'] ?>"></p>
 
                                         <p><label for="chapitre_Contenu">Contenu du chapitre</label><br/>
-                                            <textarea name="BIL_CONTENU"
-                                                      id="BIL_CONTENU"><?= $chapitres['BIL_CONTENU'] ?></textarea></p>
+                                            <textarea name="bil_Contenu"
+                                                      id="bil_Contenu"><?= $chapitres['bil_Contenu'] ?></textarea></p>
                                         <br/>
 
-                                        <input type="hidden" name="BIL_ID" id="BIL_ID"
-                                               value="<?= $chapitres['BIL_ID'] ?>"/>
+                                        <input type="hidden" name="bil_ID" id="bil_ID"
+                                               value="<?= $chapitres['bil_ID'] ?>"/>
 
                                         <input type="submit" name="submit" id="submit" value="Modifier"/>
 

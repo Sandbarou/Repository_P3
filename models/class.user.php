@@ -1,10 +1,10 @@
 <?php
 
-//création de la classe User
+// Création de la classe User
 class User
 {
 
-    // permet de savoir si l'utilisateur est connecté. Si oui retourne TRUE.
+    // Permet de savoir si l'utilisateur est connecté. Si oui, retourne TRUE.
     public function is_logged_in()
     {
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -13,21 +13,21 @@ class User
     }
 
 
-    // récupération du mot de passe et hachage
+    // Récupération du mot de passe et hachage
     public function create_hash($value)
     {
         return $hash = crypt($value, '$2a$12.substr(str_replace(' + ', ' . ', base64_encode(sha1(microtime(true), true))), 0, 22))');
     }
 
 
-    // fonction privée pour vérifier que le mot de passe user saisi et $hash sont identiques
+    // Fonction privée pour vérifier que le mot de passe user saisi et $hash sont identiques
     private function verify_hash($user_Pass, $hash)
     {
         return $hash == crypt($user_Pass, $hash);
     }
 
 
-    // fonction privée pour récupérer le mot de passe haché dans la base de données à partir du pseudo
+    // Fonction privée pour récupérer le mot de passe haché dans la base de données à partir du pseudo
     private function get_user_hash($user_Pseudo)
     {
 
@@ -46,7 +46,7 @@ class User
     }
 
 
-    // vérifier que le mot de passe saisi et $hashed sont identiques (== 1)  
+    // Vérifier que le mot de passe saisi et $hashed sont identiques (== 1)  
     public function login($user_Pseudo, $user_Pass)
     {
 
@@ -65,78 +65,47 @@ class User
         global $bdd;
         $user = new User($bdd);
 
+        // Collecter les données du formulaire
+        extract($_POST);
 
-        // quand le formulaire est envoye :
-        if (isset($_POST['submit'])) {
 
-            // collecter les données du formulaire
-            extract($_POST);
+        try {
+            if (isset($user_Pass)) {
 
-            // validations
-            if ($user_Pseudo == '') {
-                $error[] = "Merci d'entrer un pseudo";
-            }
+                $hashed_user_Pass = $user->create_hash($user_Pass);
 
-            if (strlen($user_Pass) > 0) {
+                // Maj base de données
+                $reponse = $bdd->prepare('UPDATE t_user SET user_Pseudo = :user_Pseudo, user_Pass = :user_Pass, user_Email = :user_Email WHERE user_ID = :user_ID');
+                $reponse->execute(array(
+                    ':user_Pseudo' => $user_Pseudo,
+                    ':user_Pass' => $hashed_user_Pass,
+                    ':user_Email' => $user_Email,
+                    ':user_ID' => $user_ID
+                ));
 
-                if ($user_Pass == '') {
-                    $error[] = "Merci d'entrer un mot de passe";
-                }
+                $update_users = $reponse;
 
-                if ($user_PassConfirm == '') {
-                    $error[] = "Merci de confirmer le mot de passe";
-                }
+                return $update_users;
 
-                if ($user_Pass != $user_PassConfirm) {
-                    $error[] = "Les mots de passe ne sont pas identiques";
-                }
-            }
+            } else {
+                // Maj base de données
+                $reponse = $bdd->prepare('UPDATE t_user SET user_Pseudo = :user_Pseudo, user_Email = :user_Email WHERE user_ID = :user_ID');
+                $reponse->execute(array(
+                    ':user_Pseudo' => $user_Pseudo,
+                    ':user_Email' => $user_Email,
+                    ':user_ID' => $user_ID
+                ));
 
-            if ($user_Email == '') {
-                $error[] = "Merci d'entrer une adresse email";
-            }
+                $update_users = $reponse;
 
-            if (!isset($error)) {
-                try {
-                    if (isset($user_Pass)) {
-
-                        $hashed_user_Pass = $user->create_hash($user_Pass);
-
-                        //maj base de donnees
-                        $reponse = $bdd->prepare('UPDATE t_user SET user_Pseudo = :user_Pseudo, user_Pass = :user_Pass, user_Email = :user_Email WHERE user_ID = :user_ID');
-                        $reponse->execute(array(
-                            ':user_Pseudo' => $user_Pseudo,
-                            ':user_Pass' => $hashed_user_Pass,
-                            ':user_Email' => $user_Email,
-                            ':user_ID' => $user_ID
-                        ));
-
-                        $update_users = $reponse;
-
-                        return $update_users;
-
-                    } else {
-                        //maj base de donnees
-                        $reponse = $bdd->prepare('UPDATE t_user SET user_Pseudo = :user_Pseudo, user_Email = :user_Email WHERE user_ID = :user_ID');
-                        $reponse->execute(array(
-                            ':user_Pseudo' => $user_Pseudo,
-                            ':user_Email' => $user_Email,
-                            ':user_ID' => $user_ID
-                        ));
-
-                        $update_users = $reponse;
-
-                        return $update_users;
-
-                    }
-
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
-                }
+                return $update_users;
 
             }
 
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
+
     }
 
 
@@ -145,62 +114,29 @@ class User
         global $bdd;
         $user = new User($bdd);
 
-        // quand le formulaire est envoye :
-        if (isset($_POST['submit'])) {
+        $_POST = array_map('stripslashes', $_POST);
 
-            $_POST = array_map('stripslashes', $_POST);
+        // Collecter les données du formulaire
+        extract($_POST);
 
-            // collecter les donnees du formulaire
-            extract($_POST);
+        $hashed_user_Pass = $user->create_hash($user_Pass);
 
-            // validations
-            if ($user_Pseudo == "") {
-                $error[] = "Merci d'entrer un pseudo";
-            }
+        try {
 
-            if (strlen($user_Pass) >= 0) {
+            // Insertion dans la base de données
+            $reponse = $bdd->prepare('INSERT INTO t_user (user_Pseudo, user_Pass, user_Email) VALUES (:user_Pseudo, :user_Pass, :user_Email)');
+            $reponse->execute(array(
+                ':user_Pseudo' => $user_Pseudo,
+                ':user_Pass' => $hashed_user_Pass,
+                ':user_Email' => $user_Email
+            ));
 
-                if ($user_Pass == " ") {
-                    $error[] = "Merci d'entrer un mot de passe";
-                }
+            $insert_user = $reponse;
 
-                if ($user_PassConfirm == "") {
-                    $error[] = "Merci de confirmer le mot de passe";
-                }
+            return $insert_user;
 
-                if ($user_Pass != $user_PassConfirm) {
-                    $error[] = "Les mots de passe ne sont pas identiques";
-                }
-
-            }
-
-            // check if e-mail address is well-formed
-            if (!filter_var($user_Email, FILTER_VALIDATE_EMAIL)) {
-                $error[] = "Merci d'entrer une adresse email valide";
-            }
-
-            if (!isset($error)) {
-
-                $hashed_user_Pass = $user->create_hash($user_Pass);
-
-                try {
-
-                    //insertion dans la base de donnees
-                    $reponse = $bdd->prepare('INSERT INTO t_user (user_Pseudo, user_Pass, user_Email) VALUES (:user_Pseudo, :user_Pass, :user_Email)');
-                    $reponse->execute(array(
-                        ':user_Pseudo' => $user_Pseudo,
-                        ':user_Pass' => $hashed_user_Pass,
-                        ':user_Email' => $user_Email
-                    ));
-
-                    $insert_user = $reponse;
-
-                    return $insert_user;
-
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
-                }
-            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -253,4 +189,3 @@ class User
     }
 
 }
-

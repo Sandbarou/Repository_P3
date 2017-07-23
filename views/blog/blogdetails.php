@@ -77,8 +77,8 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="single-blog blog-details two-column">
                             <div class="post-thumb">
-                                <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"><img
-                                            src="contents/images/blog/<?= $chapitre['BIL_ID'] ?>.jpg"
+                                <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"><img
+                                            src="contents/images/blog/<?= $chapitre['bil_ID'] ?>.jpg"
                                             class="img-responsive" alt="illustration"></a>
                                 <div class="post-overlay">
                                     <span class="uppercase"><a href="#"></a></span>
@@ -86,11 +86,11 @@
                             </div>
                             <div class="post-content overflow">
                                 <h2 class="post-title bold"><a
-                                            href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"><?= $chapitre['BIL_TITRE'] ?></a>
+                                            href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"><?= $chapitre['bil_Titre'] ?></a>
                                 </h2>
                                 <h3 class="post-author"><a href="index.php?action=apropos">Posté
-                                        par <?= $chapitre['BIL_AUTEUR'] ?> le <?= $chapitre['BIL_DATE_FR'] ?> </a></h3>
-                                <p><?= $chapitre['BIL_CONTENU'] ?>
+                                        par <?= $chapitre['bil_Auteur'] ?> le <?= $chapitre['bil_Date_FR'] ?> </a></h3>
+                                <p><?= $chapitre['bil_Contenu'] ?>
                                 <div class="post-bottom overflow">
                                 </div>
                                 <div class="blog-share">
@@ -132,13 +132,13 @@
                                                          alt="illustration" width="100px">
                                                 </a>
                                                 <div class="media-body">
-                                                    <span><i class="fa fa-user"></i>Posté par <?= $comment['COM_AUTEUR'] ?></span>
-                                                    <p><?= $comment['COM_CONTENU'] ?></p>
+                                                    <span><i class="fa fa-user"></i>Posté par <?= $comment['com_Auteur'] ?></span>
+                                                    <p><?= $comment['com_Contenu'] ?></p>
                                                     <ul class="nav navbar-nav post-nav">
-                                                        <li><i class="fa fa-clock-o"></i> <?= $comment['COM_DATE_FR'] ?>
+                                                        <li><i class="fa fa-clock-o"></i> <?= $comment['com_Date_FR'] ?>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:modcom('<?= $comment['COM_ID'] ?>','<?= $comment['COM_AUTEUR'] ?>')">
+                                                            <a href="javascript:modcom('<?= $comment['com_ID'] ?>','<?= $comment['com_Auteur'] ?>')">
                                                                 <i class="fa fa-bell-o"></i> Signaler ce commentaire
                                                             </a></li>
                                                     </ul>
@@ -166,18 +166,18 @@
                                 <form action="" method="post">
                                     <p>
                                         <label for="commentaire_Nom">Votre nom</label><br/>
-                                        <input type="text" name="COM_AUTEUR" id="COM_AUTEUR" size="125"
+                                        <input type="text" name="com_Auteur" id="com_Auteur" size="125"
                                                required="required" value="<?php if (isset($error)) {
-                                            echo htmlspecialchars($_POST['COM_AUTEUR']);
+                                            echo htmlspecialchars($_POST['com_Auteur']);
                                         } ?>"> <br/>
                                         <label for="commentaire_Message">Votre commentaire</label><br/>
-                                        <textarea name="COM_CONTENU" id="COM_CONTENU" rows="6" cols="124"
+                                        <textarea name="com_Contenu" id="com_Contenu" rows="6" cols="124"
                                                   required="required" value="<?php if (isset($error)) {
-                                            echo htmlspecialchars($_POST['COM_CONTENU']);
+                                            echo htmlspecialchars($_POST['com_Contenu']);
                                         } ?>"> </textarea><br/>
-                                        <input type="hidden" name="BIL_ID" id="BIL_ID"
-                                               value="<?= $chapitre['BIL_ID'] ?>">
-                                        <input type="hidden" name="COM_NIVEAU" id="COM_NIVEAU"
+                                        <input type="hidden" name="bil_ID" id="bil_ID"
+                                               value="<?= $chapitre['bil_ID'] ?>">
+                                        <input type="hidden" name="com_Niveau" id="com_Niveau"
                                                value="<?= $_POST["0"] ?>">
                                         <input type="submit" name="submit" id="submit" value="Envoyer">
                                     </p>
@@ -205,9 +205,9 @@
                                 </div>
                                 <div class="media-body">
                                     <h4>
-                                        <a href="<?= "index.php?action=billet&id=" . $commentaire['BIL_ID'] ?>"><?= $commentaire['COM_CONTENU'] ?></a>
+                                        <a href="<?= "index.php?action=billet&id=" . $commentaire['bil_ID'] ?>"><?= $commentaire['com_Contenu'] ?></a>
                                     </h4>
-                                    <p>posté le <?= $commentaire['COM_DATE_FR'] ?></p>
+                                    <p>posté le <?= $commentaire['com_Date_FR'] ?></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -220,7 +220,7 @@
 
                             <?php foreach ($chapitres_blog as $chapitre) : ?>
                                 <li>
-                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"><?= $chapitre['BIL_TITRE'] ?></a>
+                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"><?= $chapitre['bil_Titre'] ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

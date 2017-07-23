@@ -1,30 +1,3 @@
-<?php
-
-// si non connecte, retour à la page d'accueil
-$user = new User($bdd);
-if (!$user->is_logged_in()) {
-    header('Location: index.php');
-}
-
-
-//message quand on ajoute ou modifie ou supprime un utilisateur
-if (isset($_GET['deluser'])) {
-
-    //Toutes les ID autorisées sauf le 1 pour ne pas effacer l'admin principal
-    if ($_GET['deluser'] != '1') {
-
-        $delete_user->rowCount();
-
-        header('Location: index.php?action=users&effacé');
-
-        exit;
-
-    }
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -67,8 +40,7 @@ if (isset($_GET['deluser'])) {
 
 <section id="blog" class="padding-top">
     <div class="container">
-        <p>
-        <h1 class="cl-3">Liste des utilisateurs</h1></p><br/>
+        <h1 class="cl-3">Liste des utilisateurs</h1><br/>
         <div class="row">
             <div class="col-md-9 col-sm-7">
                 <div class="row">

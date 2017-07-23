@@ -1,15 +1,3 @@
-<?php
-
-if (isset($_GET['modcom'])) {
-
-    $update_commentaires->rowCount();
-
-    header('Location: index.php?action=blog&signalé');
-
-    exit;
-}
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,7 +12,6 @@ if (isset($_GET['modcom'])) {
     <script type="text/javascript" src="contents/js/lightbox.min.js"></script>
     <script type="text/javascript" src="contents/js/wow.min.js"></script>
     <script type="text/javascript" src="contents/js/main.js"></script>
-
 
     <?php include("views/window_title.php"); ?>
 
@@ -79,14 +66,12 @@ if (isset($_GET['modcom'])) {
             <div class="col-md-9 col-sm-7">
                 <div class="row">
 
-                    <?php
-                    foreach ($chapitres_blog as $chapitre) {
-                        ?>
+                    <?php foreach ($chapitres_blog as $chapitre) : ?>
                         <div class="col-sm-12 col-md-12">
                             <div class="single-blog single-column">
                                 <div class="post-thumb">
-                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"> <img
-                                                src="contents/images/blog/<?= $chapitre['BIL_ID'] ?>.jpg"
+                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"> <img
+                                                src="contents/images/blog/<?= $chapitre['bil_ID'] ?>.jpg"
                                                 class="img-responsive" alt="illustration"></a>
                                     <div class="post-overlay">
                                         <span class="uppercase"><a href="#"></a></span>
@@ -94,13 +79,13 @@ if (isset($_GET['modcom'])) {
                                 </div>
                                 <div class="post-content overflow">
                                     <h2 class="post-title bold"><a
-                                                href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"><?= $chapitre['BIL_TITRE'] ?></a>
+                                                href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"><?= $chapitre['bil_Titre'] ?></a>
                                     </h2>
                                     <h3 class="post-author"><a href="index.php?action=apropos">Posté
-                                            par <?= $chapitre['BIL_AUTEUR'] . ' le ' . $chapitre['BIL_DATE_FR'] ?></a>
+                                            par <?= $chapitre['bil_Auteur'] . ' le ' . $chapitre['bil_Date_FR'] ?></a>
                                     </h3>
-                                    <p><?= substr($chapitre['BIL_CONTENU'], 0, 300) ?>...</p>
-                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"
+                                    <p><?= substr($chapitre['bil_Contenu'], 0, 300) ?>...</p>
+                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"
                                        class="read-more">Voir plus</a>
                                     <div class="post-bottom overflow">
                                     </div>
@@ -108,9 +93,7 @@ if (isset($_GET['modcom'])) {
                             </div>
                         </div>
 
-                        <?php
-                    }
-                    ?>
+                    <?php endforeach; ?>
 
 
                 </div>
@@ -120,9 +103,7 @@ if (isset($_GET['modcom'])) {
                     <div class="sidebar-item  recent">
                         <h3>Commentaires</h3>
 
-                        <?php
-                        foreach ($commentaires as $commentaire) {
-                            ?>
+                        <?php foreach ($commentaires as $commentaire) : ?>
 
 
                             <div class="media">
@@ -132,31 +113,25 @@ if (isset($_GET['modcom'])) {
                                 </div>
                                 <div class="media-body">
                                     <h4>
-                                        <a href="<?= "index.php?action=billet&id=" . $commentaire['BIL_ID'] ?>"><?php echo $commentaire['COM_CONTENU']; ?></a>
+                                        <a href="<?= "index.php?action=billet&id=" . $commentaire['bil_ID'] ?>"><?= $commentaire['com_Contenu'] ?></a>
                                     </h4>
-                                    <p>posté le <?php echo $commentaire['COM_DATE_FR']; ?></p>
+                                    <p>posté le <?= $commentaire['com_Date_FR'] ?></p>
                                 </div>
                             </div>
 
-                            <?php
-                        }
-                        ?>
+                        <?php endforeach; ?>
                     </div>
 
                     <div class="sidebar-item categories">
                         <h3>Tous les chapitres de<br/> <i>Billet simple pour l'Alaska</i></h3>
                         <ul class="nav navbar-stacked">
 
-                            <?php
-                            foreach ($chapitres_blog as $chapitre) {
-                                ?>
+                            <?php foreach ($chapitres_blog as $chapitre) : ?>
 
                                 <li>
-                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['BIL_ID'] ?>"><?= $chapitre['BIL_TITRE'] ?></a>
+                                    <a href="<?= "index.php?action=billet&id=" . $chapitre['bil_ID'] ?>"><?= $chapitre['bil_Titre'] ?></a>
                                 </li>
-                                <?php
-                            }
-                            ?>
+                            <?php endforeach; ?>
 
                         </ul>
                     </div>

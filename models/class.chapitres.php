@@ -1,74 +1,74 @@
 <?php
 
-//création de la classe Chapitres
+// Création de la classe Chapitres
 class Chapitres
 {
 
-    private $BIL_ID;
-    private $BIL_TITRE;
-    private $BIL_AUTEUR;
-    private $BIL_CONTENU;
-    private $BIL_DATE;
+    private $bil_ID;
+    private $bil_Titre;
+    private $bil_Auteur;
+    private $bil_Contenu;
+    private $bil_Date;
 
-    public function __construct($_BIL_TITRE, $_BIL_AUTEUR, $_BIL_CONTENU)
+    public function __construct($_bil_Titre, $_bil_Auteur, $_bil_Contenu)
     {
-        $this->BIL_TITRE = $_BIL_TITRE;
-        $this->BIL_AUTEUR = $_BIL_AUTEUR;
-        $this->BIL_CONTENU = $_BIL_CONTENU;
+        $this->bil_Titre = $_bil_Titre;
+        $this->bil_Auteur = $_bil_Auteur;
+        $this->bil_Contenu = $_bil_Contenu;
     }
 
     // GETTERS //
 
-    public function BIL_ID()
+    public function bil_ID()
     {
-        return $this->BIL_ID;
+        return $this->bil_ID;
     }
 
-    public function BIL_TITRE()
+    public function bil_Titre()
     {
-        return $this->BIL_TITRE;
+        return $this->bil_Titre;
     }
 
-    public function BIL_AUTEUR()
+    public function bil_Auteur()
     {
-        return $this->BIL_AUTEUR;
+        return $this->bil_Auteur;
     }
 
-    public function BIL_CONTENU()
+    public function bil_Contenu()
     {
-        return $this->BIL_CONTENU;
+        return $this->bil_Contenu;
     }
 
-    public function BIL_DATE()
+    public function bil_Date()
     {
-        return $this->BIL_DATE;
+        return $this->bil_Date;
     }
 
     // SETTERS //
 
-    public function setId($_BIL_ID)
+    public function setId($_bil_ID)
     {
-        $this->BIL_ID = (int)$_BIL_ID;
+        $this->bil_ID = (int)$_bil_ID;
     }
 
-    public function setTitre($_BIL_TITRE)
+    public function setTitre($_bil_Titre)
     {
-        $this->BIL_TITRE = $_BIL_TITRE;
+        $this->bil_Titre = $_bil_Titre;
     }
 
-    public function setAuteur($_BIL_AUTEUR)
+    public function setAuteur($_bil_Auteur)
     {
-        $this->BIL_AUTEUR = $_BIL_AUTEUR;
+        $this->bil_Auteur = $_bil_Auteur;
     }
 
-    public function setContenu($_BIL_CONTENU)
+    public function setContenu($_bil_Contenu)
     {
-        $this->BIL_CONTENU = $_BIL_CONTENU;
+        $this->bil_Contenu = $_bil_Contenu;
     }
 
-    public function setDate($_BIL_DATE)
+    public function setDate($_bil_Date)
     {
-        $this->BIL_DATE = $_BIL_DATE;
+        $this->bil_Date = $_bil_Date;
     }
 
 
@@ -77,10 +77,10 @@ class Chapitres
     {
         global $bdd;
 
-        $billetids = $bdd->prepare('SELECT * FROM t_billet WHERE BIL_ID=?');
+        $billetids = $bdd->prepare('SELECT * FROM t_billet WHERE bil_ID=?');
         $billetids->execute(array($idBillet));
         if ($billetids->rowCount() == 1)
-            return $billetids->fetch();  // Accès à la première ligne de résultat
+            return $billetids->fetch();
         else
             throw new Exception("Aucun billet ne correspond à l'identifiant '$idBillet'");
     }
@@ -92,7 +92,7 @@ class Chapitres
         $offset = (int)$offset;
         $limit = (int)$limit;
 
-        $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY BIL_DATE ASC LIMIT :offset, :limit');
+        $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY bil_Date ASC LIMIT :offset, :limit');
         $reponse->bindParam(':offset', $offset, PDO::PARAM_INT);
         $reponse->bindParam(':limit', $limit, PDO::PARAM_INT);
         $reponse->execute();
@@ -108,7 +108,7 @@ class Chapitres
         $offset = (int)$offset;
         $limit = (int)$limit;
 
-        $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY BIL_DATE DESC LIMIT :offset, :limit');
+        $reponse = $bdd->prepare('SELECT * FROM t_billet ORDER BY bil_Date DESC LIMIT :offset, :limit');
         $reponse->bindParam(':offset', $offset, PDO::PARAM_INT);
         $reponse->bindParam(':limit', $limit, PDO::PARAM_INT);
         $reponse->execute();
@@ -122,7 +122,7 @@ class Chapitres
     {
         global $bdd;
 
-        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM t_billet ORDER BY BIL_DATE DESC');
+        $reponse = $bdd->prepare('SELECT bil_ID, bil_Titre, bil_Auteur, bil_Contenu, DATE_FORMAT(bil_Date, \'%d/%m/%Y\') AS bil_Date_FR FROM t_billet ORDER BY bil_Date DESC');
         $reponse->execute();
         $chapitres_blog = $reponse->fetchAll();
 
@@ -134,8 +134,8 @@ class Chapitres
     {
         global $bdd;
 
-        $reponse = $bdd->prepare('SELECT BIL_ID, BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, DATE_FORMAT(BIL_DATE, \'%d/%m/%Y\') AS BIL_DATE_FR FROM t_billet WHERE BIL_ID = :BIL_ID');
-        $reponse->execute(array(':BIL_ID' => $_GET['id']));
+        $reponse = $bdd->prepare('SELECT bil_ID, bil_Titre, bil_Auteur, bil_Contenu, DATE_FORMAT(bil_Date, \'%d/%m/%Y\') AS bil_Date_FR FROM t_billet WHERE bil_ID = :bil_ID');
+        $reponse->execute(array(':bil_ID' => $_GET['id']));
         $chapitres_blogdetails = $reponse->fetchAll();
 
         return $chapitres_blogdetails;
@@ -146,8 +146,8 @@ class Chapitres
     {
         global $bdd;
 
-        $reponse = $bdd->prepare('SELECT * FROM t_billet WHERE BIL_ID = :BIL_ID');
-        $reponse->execute(array(':BIL_ID' => $_GET['id']));
+        $reponse = $bdd->prepare('SELECT * FROM t_billet WHERE bil_ID = :bil_ID');
+        $reponse->execute(array(':bil_ID' => $_GET['id']));
         $chapitres_admin = $reponse->fetchAll();
 
         return $chapitres_admin;
@@ -158,100 +158,59 @@ class Chapitres
     {
         global $bdd;
 
-        // quand le formulaire est envoye :
-        if (isset($_POST['submit'])) {
+        $_POST = array_map('stripslashes', $_POST);
 
-            $_POST = array_map('stripslashes', $_POST);
+        // Collecter les données du formulaire
+        extract($_POST);
 
-            // collecter les donnees du formulaire
-            extract($_POST);
+        try {
 
-            // validations
-            if ($BIL_TITRE == '') {
-                $error[] = "Merci d'écrire un titre";
-            }
+            // Insertion dans la base de données
+            $reponse = $bdd->prepare('INSERT INTO t_billet (bil_Titre, bil_Auteur, bil_Contenu, bil_Date) VALUES (:bil_Titre, :bil_Auteur, :bil_Contenu, :bil_Date)');
+            $reponse->execute(array(
+                ':bil_Titre' => $this->bil_Titre,
+                ':bil_Auteur' => $this->bil_Auteur,
+                ':bil_Contenu' => $this->bil_Contenu,
+                ':bil_Date' => $bil_Date,
+            ));
 
-            if ($BIL_CONTENU == '') {
-                $error[] = "Merci d'ajouter un contenu";
-            }
+            $insert_chap = $reponse;
 
-            if (!isset($error)) {
+            return $insert_chap;
 
-                try {
-
-                    //insertion dans la base de donnees
-                    $reponse = $bdd->prepare('INSERT INTO t_billet (BIL_TITRE, BIL_AUTEUR, BIL_CONTENU, BIL_DATE) VALUES (:BIL_TITRE, :BIL_AUTEUR, :BIL_CONTENU, :BIL_DATE)');
-                    $reponse->execute(array(
-                        ':BIL_TITRE' => $this->BIL_TITRE,
-                        ':BIL_AUTEUR' => $this->BIL_AUTEUR,
-                        ':BIL_CONTENU' => $this->BIL_CONTENU,
-                        ':BIL_DATE' => $BIL_DATE,
-                    ));
-
-                    $insert_chap = $reponse;
-
-                    return $insert_chap;
-
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
-                }
-
-            }
-
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
 
     }
-
 
     public function update_chapitres()
     {
         global $bdd;
 
-        // quand le formulaire est envoye :
-        if (isset($_POST['submit'])) {
+        $_POST = array_map('stripslashes', $_POST);
 
-            $_POST = array_map('stripslashes', $_POST);
+        // Collecter les données du formulaire
+        extract($_POST);
 
-            // collecter les donnees du formulaire
-            extract($_POST);
+        try {
 
-            // validations
-            if ($BIL_ID == '') {
-                $error[] = "L'ID de ce chapitre n'est pas valide !";
-            }
+            // Maj base de données
+            $reponse = $bdd->prepare('UPDATE t_billet SET bil_Date = :bil_Date, bil_Titre = :bil_Titre, bil_Auteur = :bil_Auteur, bil_Contenu = :bil_Contenu WHERE bil_ID = :bil_ID');
+            $reponse->execute(array(
+                ':bil_ID' => $bil_ID,
+                ':bil_Date' => $bil_Date,
+                ':bil_Titre' => $bil_Titre,
+                ':bil_Auteur' => $bil_Auteur,
+                ':bil_Contenu' => $bil_Contenu,
+            ));
 
-            if ($BIL_TITRE == '') {
-                $error[] = "Merci d'écrire un titre";
-            }
+            $update_chap = $reponse;
 
-            if ($BIL_CONTENU == '') {
-                $error[] = "Merci d'ajouter un contenu";
-            }
+            return $update_chap;
 
-            if (!isset($error)) {
-
-                try {
-
-                    //maj base de donnees
-                    $reponse = $bdd->prepare('UPDATE t_billet SET BIL_DATE = :BIL_DATE, BIL_TITRE = :BIL_TITRE, BIL_AUTEUR = :BIL_AUTEUR, BIL_CONTENU = :BIL_CONTENU WHERE BIL_ID = :BIL_ID');
-                    $reponse->execute(array(
-                        ':BIL_ID' => $BIL_ID,
-                        ':BIL_DATE' => $BIL_DATE,
-                        ':BIL_TITRE' => $BIL_TITRE,
-                        ':BIL_AUTEUR' => $BIL_AUTEUR,
-                        ':BIL_CONTENU' => $BIL_CONTENU,
-                    ));
-
-                    $update_chap = $reponse;
-
-                    return $update_chap;
-
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
-                }
-
-            }
-
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
 
     }
@@ -263,8 +222,8 @@ class Chapitres
 
         if (isset($_GET['delpost'])) {
 
-            $reponse = $bdd->prepare('DELETE FROM t_billet WHERE BIL_ID = :BIL_ID');
-            $reponse->execute(array(':BIL_ID' => $_GET['delpost']));
+            $reponse = $bdd->prepare('DELETE FROM t_billet WHERE bil_ID = :bil_ID');
+            $reponse->execute(array(':bil_ID' => $_GET['delpost']));
             $delete_chap = $reponse;
 
             return $delete_chap;

@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <h2>PAGE NON TROUVEE</h2>
-                        <p>La page que vous cherchez n'existe plus.</p>
+                        <p>La page que vous cherchez n'existe pas.</p>
                         <a href="index.php" class="btn btn-error">RETOURNER A L'ACCUEIL</a>
 
                     </div>
